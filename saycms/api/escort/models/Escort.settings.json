@@ -1,0 +1,65 @@
+{
+  "connection": "default",
+  "collectionName": "escorts",
+  "info": {
+    "name": "escort",
+    "description": "Escort information"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "comment": ""
+  },
+  "attributes": {
+    "name": {
+      "default": "",
+      "type": "string"
+    },
+    "birthdate": {
+      "default": "",
+      "type": "date"
+    },
+    "about": {
+      "default": "",
+      "type": "text"
+    },
+    "phone": {
+      "default": "",
+      "type": "string"
+    },
+    "weight": {
+      "default": "",
+      "type": "string"
+    },
+    "height": {
+      "default": "",
+      "type": "string"
+    },
+    "location": {
+      "default": "",
+      "type": "string"
+    },
+    "profilephoto": {
+      "model": "file",
+      "via": "related",
+      "plugin": "upload",
+      "required": false
+    },
+    "escortgallery": {
+      "model": "escortgallery",
+      "via": "escort"
+    },
+    "comments": {
+      "collection": "comment",
+      "via": "escort"
+    },
+    "rating": {
+      "default": "",
+      "type": "decimal"
+    },
+    "serviceplan": {
+      "model": "serviceplan",
+      "via": "escort"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "connection": "default",
+  "collectionName": "photos",
+  "info": {
+    "name": "photo",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "comment": ""
+  },
+  "attributes": {
+    "imagePath": {
+      "model": "file",
+      "via": "related",
+      "plugin": "upload",
+      "required": false
+    },
+    "escortgallery": {
+      "model": "escortgallery",
+      "via": "photos"
+    }
+  }
+}

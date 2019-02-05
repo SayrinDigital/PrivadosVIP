@@ -62,7 +62,7 @@
                 <p class="section-header">Scorts</p>
                 <h1>Destacadas</h1>
                   <div class="uk-section uk-section-small">
-                    <GirlCard :girl="girl"></GirlCard>
+                    <!--<GirlCard :girl="girl"></GirlCard>-->
                   </div>
               </div>
             </div>
@@ -90,11 +90,7 @@ export default {
   },
   data() {
     return {
-      girl: {
-        "id" : 2,
-        "name": "Carmen",
-        "cover" : "https://images.unsplash.com/photo-1515161318750-781d6122e367?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=624&q=80"
-      }
+      girl: null
     }
   },
   components: {

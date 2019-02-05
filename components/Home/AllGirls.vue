@@ -1,41 +1,48 @@
 <template>
-
 <div>
   <p class="section-header">Scorts</p>
   <h1>Nuestras Chicas</h1>
 
   <div class="uk-section uk-section-small">
-    <div class="uk-child-width-1-4@l uk-child-width-1-2@m uk-child-width-1-1 uk-grid-small" uk-grid>
-      <div v-for="girl in girls" >
+    <div class="uk-child-width-1-4@l uk-child-width-1-2@m uk-child-width-1-1 uk-grid-small" uk-grid uk-scrollspy="cls: uk-animation-slide-bottom-medium; target: > div > div; delay: 100;">
+      <div v-for="girl in girls">
         <GirlCard :girl="girl"></GirlCard>
       </div>
     </div>
   </div>
 </div>
-
 </template>
 
 <script>
+import axios from 'axios'
 import GirlCard from '~/components/Home/components/GirlCard.vue'
 
 export default {
-  data() {
-    return {
-      girls: [
-        { "id" : 1,
-          "name": "Laura",
-          "cover" : "https://images.unsplash.com/photo-1520065949650-380765513210?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80"
-        },
-        {
-          "id" : 2,
-          "name": "Carmen",
-          "cover" : "https://images.unsplash.com/photo-1515161318750-781d6122e367?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=624&q=80"
-        }
-      ]
-    }
-  },
   components: {
     GirlCard
-  }
+  },
+  data() {
+    return {
+      girls: null
+    }
+  },
+  mounted() {
+    axios
+      .get('http://localhost:1337/escorts', {
+        params: {
+          _sort: 'id:desc' // Generates http://localhost:1337/posts?_sort=createdAt:desc
+        }
+      })
+      .then(response => {
+        // Handle success.
+        //console.log('Well done, here is the list of posts: ', response.data);
+        this.girls = response.data
+      })
+      .catch(error => {
+        // Handle error.
+        console.log('An error occurred:', error);
+      });
+  },
+
 }
 </script>

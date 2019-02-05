@@ -6,7 +6,7 @@
   <h1>Mejor Calificadas</h1>
 
   <div class="uk-section uk-section-small">
-    <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slider>
+    <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slider="autoplay: true; autoplay-interval: 1000">
 
         <ul class="uk-slider-items uk-child-width-1-2 uk-child-width-1-3@m uk-grid uk-grid-small uk-child-width-1-5@l" >
           <li v-for="girl in girls" >
@@ -24,26 +24,34 @@
 </template>
 
 <script>
+import axios from 'axios'
 import GirlCard from '~/components/Home/components/GirlCard.vue'
 
 export default {
   data() {
     return {
-      girls: [
-        { "id" : 1,
-          "name": "Laura",
-          "cover" : "https://images.unsplash.com/photo-1520065949650-380765513210?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80"
-        },
-        {
-          "id" : 2,
-          "name": "Carmen",
-          "cover" : "https://images.unsplash.com/photo-1515161318750-781d6122e367?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=624&q=80"
-        }
-      ]
+      girls: null
     }
   },
   components: {
     GirlCard
-  }
+  },
+  mounted() {
+    axios
+      .get('http://localhost:1337/escorts', {
+        params: {
+          _sort: 'id:desc' // Generates http://localhost:1337/posts?_sort=createdAt:desc
+        }
+      })
+      .then(response => {
+        // Handle success.
+        //console.log('Well done, here is the list of posts: ', response.data);
+        this.girls = response.data
+      })
+      .catch(error => {
+        // Handle error.
+        console.log('An error occurred:', error);
+      });
+  },
 }
 </script>

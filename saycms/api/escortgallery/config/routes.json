@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/escortgalleries",
+      "handler": "Escortgallery.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/escortgalleries/count",
+      "handler": "Escortgallery.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/escortgalleries/:id",
+      "handler": "Escortgallery.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/escortgalleries",
+      "handler": "Escortgallery.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/escortgalleries/:id",
+      "handler": "Escortgallery.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/escortgalleries/:id",
+      "handler": "Escortgallery.destroy",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

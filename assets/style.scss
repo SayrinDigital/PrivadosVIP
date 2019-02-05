@@ -59,11 +59,12 @@ a{
   }
 }
 
-
+.min-header{
+  margin-top: -80px;
+}
 
 header{
   min-height: 100vh;
-  margin-top: -80px;
   .gradient-overlay{
     background: linear-gradient(to top, rgba(34,34,34,1) 0%, rgba(34,34,34,0.95) 10%,  rgba(34,34,34,0.5) 45%, rgba(34,34,34,0) 100%);
   }

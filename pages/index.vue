@@ -13,6 +13,7 @@
     <HighlightGirls></HighlightGirls>
     <BestQualified></BestQualified>
 
+
     <section class="uk-section">
       <div class="uk-container uk-container-large">
         <div class="" uk-grid>
@@ -26,7 +27,7 @@
               <p class="section-header">Scorts</p>
               <h1>Destacadas</h1>
               <div class="uk-section uk-section-small">
-                <GirlCard :girl="girl"></GirlCard>
+                <!--<GirlCard :girl="girl"></GirlCard>-->
               </div>
             </div>
           </div>
@@ -35,6 +36,8 @@
     </section>
 
     <JoinUs></JoinUs>
+    <button @click="openmodal">open</button>
+    <ModalGirl :girl="null" ref="modalgirlcard"></ModalGirl>
   </div>
 </transition>
 
@@ -49,7 +52,13 @@ import BestQualified from '~/components/Home/BestQualified.vue'
 import AllGirls from '~/components/Home/AllGirls.vue'
 import GirlCard from '~/components/Home/components/GirlCard.vue'
 import JoinUs from '~/components/Home/JoinUs.vue'
+import ModalGirl from '~/components/Home/components/ModalGirl.vue'
 
+let UIkit;
+
+if (process.browser) {
+  UIkit = require('uikit');
+}
 
 export default {
   transition: 'fade',
@@ -80,10 +89,16 @@ export default {
     BestQualified,
     AllGirls,
     GirlCard,
-    JoinUs
+    JoinUs,
+    ModalGirl
   },
   mounted() {
     setTimeout(() => this.isloading = false, 1000)
+  },
+  methods: {
+    openmodal: function(){
+     UIkit.modal(this.$refs.modalgirlcard).show()
+    }
   }
 }
 </script>
