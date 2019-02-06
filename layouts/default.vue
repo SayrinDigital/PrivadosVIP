@@ -21,7 +21,7 @@
         </div>
 
         <div class="uk-navbar-item">
-          <a href="#" class="uk-button-text">Destacadas</a>
+          <nuxt-link to="/" class="uk-button-text">Inicio</nuxt-link>
         </div>
 
         <div class="uk-navbar-item">

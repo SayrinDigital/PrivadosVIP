@@ -69,6 +69,9 @@
           </div>
         </div>
       </section>
+
+<ModalGirl :girl="null" ref="modalgirlcard"></ModalGirl>
+
     </div>
   </div>
 
@@ -77,6 +80,7 @@
 <script>
 import AllGirls from '~/components/Home/AllGirls.vue'
 import GirlCard from '~/components/Home/components/GirlCard.vue'
+import ModalGirl from '~/components/Home/components/ModalGirl.vue'
 
 export default {
   transition: 'fade',
@@ -95,7 +99,8 @@ export default {
   },
   components: {
     AllGirls,
-    GirlCard
+    GirlCard,
+    ModalGirl
   }
 }
 </script>

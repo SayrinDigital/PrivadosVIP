@@ -2,48 +2,48 @@
   "routes": [
     {
       "method": "GET",
-      "path": "/photos",
-      "handler": "Photo.find",
+      "path": "/galleryphotos",
+      "handler": "Galleryphoto.find",
       "config": {
         "policies": []
       }
     },
     {
       "method": "GET",
-      "path": "/photos/count",
-      "handler": "Photo.count",
+      "path": "/galleryphotos/count",
+      "handler": "Galleryphoto.count",
       "config": {
         "policies": []
       }
     },
     {
       "method": "GET",
-      "path": "/photos/:id",
-      "handler": "Photo.findOne",
+      "path": "/galleryphotos/:id",
+      "handler": "Galleryphoto.findOne",
       "config": {
         "policies": []
       }
     },
     {
       "method": "POST",
-      "path": "/photos",
-      "handler": "Photo.create",
+      "path": "/galleryphotos",
+      "handler": "Galleryphoto.create",
       "config": {
         "policies": []
       }
     },
     {
       "method": "PUT",
-      "path": "/photos/:id",
-      "handler": "Photo.update",
+      "path": "/galleryphotos/:id",
+      "handler": "Galleryphoto.update",
       "config": {
         "policies": []
       }
     },
     {
       "method": "DELETE",
-      "path": "/photos/:id",
-      "handler": "Photo.destroy",
+      "path": "/galleryphotos/:id",
+      "handler": "Galleryphoto.destroy",
       "config": {
         "policies": []
       }

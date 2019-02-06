@@ -61,8 +61,8 @@
       "collection": "specialservice",
       "via": "escort"
     },
-    "photos": {
-      "collection": "photo",
+    "galleryphotos": {
+      "collection": "galleryphoto",
       "via": "escort"
     }
   }

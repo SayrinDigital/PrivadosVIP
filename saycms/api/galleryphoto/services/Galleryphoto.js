@@ -1,8 +1,8 @@
-/* global Photo */
+/* global Galleryphoto */
 'use strict';
 
 /**
- * Photo.js service
+ * Galleryphoto.js service
  *
  * @description: A set of functions similar to controller's actions to avoid code duplication.
  */
@@ -16,20 +16,20 @@ const utils = require('strapi-hook-bookshelf/lib/utils/');
 module.exports = {
 
   /**
-   * Promise to fetch all photos.
+   * Promise to fetch all galleryphotos.
    *
    * @return {Promise}
    */
 
   fetchAll: (params) => {
     // Convert `params` object to filters compatible with Bookshelf.
-    const filters = strapi.utils.models.convertParams('photo', params);
+    const filters = strapi.utils.models.convertParams('galleryphoto', params);
     // Select field to populate.
-    const populate = Photo.associations
+    const populate = Galleryphoto.associations
       .filter(ast => ast.autoPopulate !== false)
       .map(ast => ast.alias);
 
-    return Photo.query(function(qb) {
+    return Galleryphoto.query(function(qb) {
       _.forEach(filters.where, (where, key) => {
         if (_.isArray(where.value) && where.symbol !== 'IN') {
           for (const value in where.value) {
@@ -52,33 +52,33 @@ module.exports = {
   },
 
   /**
-   * Promise to fetch a/an photo.
+   * Promise to fetch a/an galleryphoto.
    *
    * @return {Promise}
    */
 
   fetch: (params) => {
     // Select field to populate.
-    const populate = Photo.associations
+    const populate = Galleryphoto.associations
       .filter(ast => ast.autoPopulate !== false)
       .map(ast => ast.alias);
 
-    return Photo.forge(_.pick(params, 'id')).fetch({
+    return Galleryphoto.forge(_.pick(params, 'id')).fetch({
       withRelated: populate
     });
   },
 
   /**
-   * Promise to count a/an photo.
+   * Promise to count a/an galleryphoto.
    *
    * @return {Promise}
    */
 
   count: (params) => {
     // Convert `params` object to filters compatible with Bookshelf.
-    const filters = strapi.utils.models.convertParams('photo', params);
+    const filters = strapi.utils.models.convertParams('galleryphoto', params);
 
-    return Photo.query(function(qb) {
+    return Galleryphoto.query(function(qb) {
       _.forEach(filters.where, (where, key) => {
         if (_.isArray(where.value)) {
           for (const value in where.value) {
@@ -92,50 +92,50 @@ module.exports = {
   },
 
   /**
-   * Promise to add a/an photo.
+   * Promise to add a/an galleryphoto.
    *
    * @return {Promise}
    */
 
   add: async (values) => {
     // Extract values related to relational data.
-    const relations = _.pick(values, Photo.associations.map(ast => ast.alias));
-    const data = _.omit(values, Photo.associations.map(ast => ast.alias));
+    const relations = _.pick(values, Galleryphoto.associations.map(ast => ast.alias));
+    const data = _.omit(values, Galleryphoto.associations.map(ast => ast.alias));
 
     // Create entry with no-relational data.
-    const entry = await Photo.forge(data).save();
+    const entry = await Galleryphoto.forge(data).save();
 
     // Create relational data and return the entry.
-    return Photo.updateRelations({ id: entry.id , values: relations });
+    return Galleryphoto.updateRelations({ id: entry.id , values: relations });
   },
 
   /**
-   * Promise to edit a/an photo.
+   * Promise to edit a/an galleryphoto.
    *
    * @return {Promise}
    */
 
   edit: async (params, values) => {
     // Extract values related to relational data.
-    const relations = _.pick(values, Photo.associations.map(ast => ast.alias));
-    const data = _.omit(values, Photo.associations.map(ast => ast.alias));
+    const relations = _.pick(values, Galleryphoto.associations.map(ast => ast.alias));
+    const data = _.omit(values, Galleryphoto.associations.map(ast => ast.alias));
 
     // Create entry with no-relational data.
-    const entry = Photo.forge(params).save(data);
+    const entry = Galleryphoto.forge(params).save(data);
 
     // Create relational data and return the entry.
-    return Photo.updateRelations(Object.assign(params, { values: relations }));
+    return Galleryphoto.updateRelations(Object.assign(params, { values: relations }));
   },
 
   /**
-   * Promise to remove a/an photo.
+   * Promise to remove a/an galleryphoto.
    *
    * @return {Promise}
    */
 
   remove: async (params) => {
     params.values = {};
-    Photo.associations.map(association => {
+    Galleryphoto.associations.map(association => {
       switch (association.nature) {
         case 'oneWay':
         case 'oneToOne':
@@ -152,45 +152,45 @@ module.exports = {
       }
     });
 
-    await Photo.updateRelations(params);
+    await Galleryphoto.updateRelations(params);
 
-    return Photo.forge(params).destroy();
+    return Galleryphoto.forge(params).destroy();
   },
 
   /**
-   * Promise to search a/an photo.
+   * Promise to search a/an galleryphoto.
    *
    * @return {Promise}
    */
 
   search: async (params) => {
     // Convert `params` object to filters compatible with Bookshelf.
-    const filters = strapi.utils.models.convertParams('photo', params);
+    const filters = strapi.utils.models.convertParams('galleryphoto', params);
     // Select field to populate.
-    const populate = Photo.associations
+    const populate = Galleryphoto.associations
       .filter(ast => ast.autoPopulate !== false)
       .map(ast => ast.alias);
 
-    const associations = Photo.associations.map(x => x.alias);
-    const searchText = Object.keys(Photo._attributes)
-      .filter(attribute => attribute !== Photo.primaryKey && !associations.includes(attribute))
-      .filter(attribute => ['string', 'text'].includes(Photo._attributes[attribute].type));
+    const associations = Galleryphoto.associations.map(x => x.alias);
+    const searchText = Object.keys(Galleryphoto._attributes)
+      .filter(attribute => attribute !== Galleryphoto.primaryKey && !associations.includes(attribute))
+      .filter(attribute => ['string', 'text'].includes(Galleryphoto._attributes[attribute].type));
 
-    const searchNoText = Object.keys(Photo._attributes)
-      .filter(attribute => attribute !== Photo.primaryKey && !associations.includes(attribute))
-      .filter(attribute => !['string', 'text', 'boolean', 'integer', 'decimal', 'float'].includes(Photo._attributes[attribute].type));
+    const searchNoText = Object.keys(Galleryphoto._attributes)
+      .filter(attribute => attribute !== Galleryphoto.primaryKey && !associations.includes(attribute))
+      .filter(attribute => !['string', 'text', 'boolean', 'integer', 'decimal', 'float'].includes(Galleryphoto._attributes[attribute].type));
 
-    const searchInt = Object.keys(Photo._attributes)
-      .filter(attribute => attribute !== Photo.primaryKey && !associations.includes(attribute))
-      .filter(attribute => ['integer', 'decimal', 'float'].includes(Photo._attributes[attribute].type));
+    const searchInt = Object.keys(Galleryphoto._attributes)
+      .filter(attribute => attribute !== Galleryphoto.primaryKey && !associations.includes(attribute))
+      .filter(attribute => ['integer', 'decimal', 'float'].includes(Galleryphoto._attributes[attribute].type));
 
-    const searchBool = Object.keys(Photo._attributes)
-      .filter(attribute => attribute !== Photo.primaryKey && !associations.includes(attribute))
-      .filter(attribute => ['boolean'].includes(Photo._attributes[attribute].type));
+    const searchBool = Object.keys(Galleryphoto._attributes)
+      .filter(attribute => attribute !== Galleryphoto.primaryKey && !associations.includes(attribute))
+      .filter(attribute => ['boolean'].includes(Galleryphoto._attributes[attribute].type));
 
     const query = (params._q || '').replace(/[^a-zA-Z0-9.-\s]+/g, '');
 
-    return Photo.query(qb => {
+    return Galleryphoto.query(qb => {
       // Search in columns which are not text value.
       searchNoText.forEach(attribute => {
         qb.orWhereRaw(`LOWER(${attribute}) LIKE '%${_.toLower(query)}%'`);
@@ -209,7 +209,7 @@ module.exports = {
       }
 
       // Search in columns with text using index.
-      switch (Photo.client) {
+      switch (Galleryphoto.client) {
         case 'pg': {
           const searchQuery = searchText.map(attribute =>
             _.toLower(attribute) === attribute

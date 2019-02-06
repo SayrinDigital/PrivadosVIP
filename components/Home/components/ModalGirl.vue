@@ -17,7 +17,7 @@
                     <div>
                       <div class="girl-card-container">
                         <h4>{{ girl.name }}</h4>
-                        <p class="tag"> <span class="uk-icon uk-margin-small-right" uk-icon="icon: star;"></span><span class="uk-highlight">{{ rating | limitDecimals }}</span></p>
+                        <p class="tag"> <span class="uk-icon uk-margin-small-right" uk-icon="icon: star;"></span><span class="uk-highlight">{{ ratingfinal | limitDecimals }}</span></p>
                       </div>
                     </div>
                     <div>
@@ -124,7 +124,9 @@
                                   <textarea class="uk-textarea" v-model="comment" rows="4" type="text" placeholder="Comentario"></textarea>
                                 </div>
                                 <div class="uk-width-1-1 uk-text-right">
-                                  <StarRating v-bind:star-size="20" v-model="rating"></StarRating>
+                                  <no-ssr>
+                                    <StarRating v-bind:star-size="20" v-model="rating"></StarRating>
+                                  </no-ssr>
                                 </div>
                                 <div class="uk-text-right uk-width-1-1">
                                   <button type="button" class="uk-button red-button" @click="postRateComment">Enviar</button>
@@ -137,7 +139,7 @@
 
                     </div>
 
-                    <transition-group name="list-complete" tag="ul" class="uk-comment-list uk-margin-left">
+                    <transition-group name="fade" tag="ul" class="uk-comment-list uk-margin-left">
                       <li class="container-comment" v-for="comment in comments" :key="comment.id">
                         <Comment :comment="comment"></Comment>
                       </li>
@@ -152,33 +154,19 @@
 
         <!-- Gallery Slider-->
 
-        <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slider>
+        <div v-if="gallery" class="uk-section uk-section-small">
+          <div  class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slider>
 
-          <ul class="uk-slider-items uk-child-width-1-4 uk-grid-small uk-grid">
-            <li>
-              <img class="uk-border-rounded" src="https://images.unsplash.com/photo-1525672892528-eb2eead4effc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80" alt="">
-            </li>
-            <li>
-              <img class="uk-border-rounded" src="https://images.unsplash.com/photo-1525672892528-eb2eead4effc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80" alt="">
-            </li>
-            <li>
-              <img class="uk-border-rounded" src="https://images.unsplash.com/photo-1525672892528-eb2eead4effc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80" alt="">
-            </li>
-            <li>
-              <img class="uk-border-rounded" src="https://images.unsplash.com/photo-1525672892528-eb2eead4effc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80" alt="">
-            </li>
-            <li>
-              <img class="uk-border-rounded" src="https://images.unsplash.com/photo-1525672892528-eb2eead4effc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80" alt="">
-            </li>
-            <li>
-              <img class="uk-border-rounded" src="https://images.unsplash.com/photo-1525672892528-eb2eead4effc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80" alt="">
-            </li>
+            <transition-group name="list-complete" tag="ul" class="uk-slider-items uk-child-width-1-4 uk-grid-small uk-grid" uk-lightbox="animation: slide">
+              <li v-for="photo in gallery" :key="photo.id">
+                <GalleryGirl :photo="photo"></GalleryGirl>
+              </li>
+              </transition-group>
 
-          </ul>
+            <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
+            <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slider-item="next"></a>
 
-          <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
-          <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slider-item="next"></a>
-
+          </div>
         </div>
 
         <!-- End Gallery Slider-->
@@ -199,12 +187,14 @@ if (process.browser) {
 import axios from 'axios'
 import StarRating from 'vue-star-rating'
 import Comment from '~/components/Home/components/Comment.vue'
+import GalleryGirl from '~/components/Home/components/GalleryGirl.vue'
 
 export default {
 
   components: {
     StarRating,
-    Comment
+    Comment,
+    GalleryGirl
   },
   data() {
     return {
@@ -213,7 +203,9 @@ export default {
       rating: 2,
       name: "",
       comment: "",
-      comments: []
+      comments: [],
+      gallery: [],
+      ratingfinal: 0
     }
   },
   created() {
@@ -239,7 +231,7 @@ export default {
       }
       return age;
     },
-    limitDecimals: function(value){
+    limitDecimals: function(value) {
       return value.toFixed(1)
     }
   },
@@ -250,10 +242,15 @@ export default {
 
     getComments: function() {
       axios
-        .get('http://localhost:1337/escorts/' + this.girl.id)
+        .get('http://localhost:1337/escorts/' + this.girl.id,{
+          params:{
+            _sort: 'id:desc'
+          }
+        })
         .then(response => {
           this.comments = response.data.comments,
-          this.setNewRating()
+            this.setNewRating()
+          this.getGallery()
         })
         .catch(error => {
           // Handle error.
@@ -265,14 +262,14 @@ export default {
       var self = this
       const commentsQuantity = self.comments.length
       const rating = self.comments.reduce((acc, item) => acc + item.rate, 0);
-      const finalrate = rating/commentsQuantity
+      const finalrate = rating / commentsQuantity
 
       axios
         .put('http://localhost:1337/escorts/' + this.girl.id, {
           rating: finalrate
         })
         .then(response => {
-          this.rating = finalrate
+          this.ratingfinal = finalrate
         })
         .catch(error => {
           // Handle error.
@@ -311,7 +308,23 @@ export default {
         .catch(error => {
           // Handle error.
           console.log('An error occurred:', error);
-        });
+        })
+    },
+
+    getGallery: function() {
+      axios
+        .get('http://localhost:1337/galleryphotos/', {
+          params: {
+            'escort': this.girl.id
+          }
+        })
+        .then(response => {
+          this.gallery = response.data
+        })
+        .catch(error => {
+          // Handle error.
+          console.log('An error occurred:', error);
+        })
     }
   }
 }

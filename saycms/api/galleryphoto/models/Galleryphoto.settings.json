@@ -1,8 +1,8 @@
 {
   "connection": "default",
-  "collectionName": "photos",
+  "collectionName": "galleryphotos",
   "info": {
-    "name": "photo",
+    "name": "galleryphoto",
     "description": ""
   },
   "options": {
@@ -19,7 +19,11 @@
     },
     "escort": {
       "model": "escort",
-      "via": "photos"
+      "via": "galleryphotos"
+    },
+    "name": {
+      "default": "",
+      "type": "string"
     }
   }
 }
