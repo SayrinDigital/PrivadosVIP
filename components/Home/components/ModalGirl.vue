@@ -12,35 +12,35 @@
             <div>
               <div v-if="girl">
 
-              <div class="uk-card-body">
-                <div class="uk-child-width-1-4" uk-grid>
-                  <div>
-                    <div class="girl-card-container">
-                      <h4>{{ girl.name }}</h4>
-                      <p class="tag"><span class="uk-margin-small-right" uk-icon="icon: bolt;"></span>Vip</p>
-                    </div>
-                  </div>
-                  <div>
+                <div class="uk-card-body">
+                  <div class="uk-child-width-1-4" uk-grid>
                     <div>
-                      <p><span class="uk-margin-small-right" uk-icon="icon: location;"></span> {{ girl.location }}</p>
-                      <p><span class="uk-margin-small-right" uk-icon="icon: phone;"></span> {{ girl.phone }}</p>
+                      <div class="girl-card-container">
+                        <h4>{{ girl.name }}</h4>
+                        <p class="tag"> <span class="uk-icon uk-margin-small-right" uk-icon="icon: star;"></span><span class="uk-highlight">{{ rating | limitDecimals }}</span></p>
+                      </div>
                     </div>
-                  </div>
-                  <div>
                     <div>
-                      <p><span class="uk-margin-small-right" uk-icon="icon: calendar;"></span> 25 años</p>
-                      <p><span class="uk-margin-small-right" uk-icon="icon: happy;"></span> {{ girl.weight }}. - {{ girl.height }}</p>
+                      <div>
+                        <p><span class="uk-margin-small-right" uk-icon="icon: location;"></span> {{ girl.location }}</p>
+                        <p><span class="uk-margin-small-right" uk-icon="icon: phone;"></span> {{ girl.phone }}</p>
+                      </div>
                     </div>
-                  </div>
-                  <div>
-                    <div class="uk-text-right">
-                      <a class="uk-display-block uk-margin-bottom"><span class="uk-icon uk-icon-button" uk-icon="icon: phone"></span></a>
-                      <a class=""><span class="uk-icon uk-icon-button" uk-icon="icon: whatsapp"></span></a>
+                    <div>
+                      <div>
+                        <p><span class="uk-margin-small-right" uk-icon="icon: calendar;"></span> {{ girl.birthdate | getAge }} años</p>
+                        <p><span class="uk-margin-small-right" uk-icon="icon: happy;"></span> {{ girl.weight }} kgs. - {{ girl.height }} mts.</p>
+                      </div>
+                    </div>
+                    <div>
+                      <div class="uk-text-right">
+                        <a :href="'tel:' +  girl.phone" :uk-tooltip="girl.phone" class="uk-display-block uk-margin-bottom"><span class="uk-icon uk-icon-button" uk-icon="icon: phone"></span></a>
+                        <a :href="'https://api.whatsapp.com/send?phone=' + girl.phone + '&text=Hola, te escribo desde Privados VIP' " class=""><span class="uk-icon uk-icon-button" uk-icon="icon: whatsapp"></span></a>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-</div>
 
               <!--Switch-->
 
@@ -79,40 +79,30 @@
                 </li>
                 <li>
                   <h4>Servicios</h4>
-                  <table class="uk-table uk-table-divider">
-                    <thead>
-                      <tr>
-                        <th>Incluidos</th>
-                        <th>Especiales</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>Table Data</td>
-                        <td>Table Data</td>
-                      </tr>
-                      <tr>
-                        <td>Table Data</td>
-                        <td>Table Data</td>
-                      </tr>
-                      <tr>
-                        <td>Table Data</td>
-                        <td>Table Data</td>
-                      </tr>
-                      <tr>
-                        <td>Table Data</td>
-                        <td>Table Data</td>
-                      </tr>
-                      <tr>
-                        <td>Table Data</td>
-                        <td>Table Data</td>
-                      </tr>
-                      <tr>
-                        <td>Table Data</td>
-                        <td>Table Data</td>
-                      </tr>
-                    </tbody>
-                  </table>
+
+                  <div class="uk-section uk-section-small">
+                    <div v-if="girl" class="uk-child-width-expand@s" uk-grid>
+
+                      <div>
+                        <h4>Incluidos</h4>
+                        <ul class="uk-list uk-list-large uk-list-divider">
+                          <li v-for="iservice in girl.includedservices">
+                            {{ iservice.name }}
+                          </li>
+                        </ul>
+                      </div>
+
+                      <div>
+                        <h4>Especiales</h4>
+                        <ul class="uk-list uk-list-large uk-list-divider">
+                          <li v-for="sservice in girl.specialservices">
+                            {{ sservice.name }}
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
                 </li>
                 <li>
                   <div>
@@ -124,11 +114,20 @@
                           <div class="dropdown-style-a uk-border-rounded uk-box-shadow-hover-medium uk-width-large" uk-dropdown="mode: click">
                             <div>
                               <form class="uk-grid-small" uk-grid>
-                                <div class="uk-width-1-1">
-                                  <input class="uk-input" type="text" placeholder="Nombre">
+                                <div>
+                                  <h4>Calificar</h4>
                                 </div>
                                 <div class="uk-width-1-1">
-                                  <textarea class="uk-textarea" rows="4" type="text" placeholder="Comentario"></textarea>
+                                  <input class="uk-input" v-model="name" type="text" placeholder="Nombre">
+                                </div>
+                                <div class="uk-width-1-1">
+                                  <textarea class="uk-textarea" v-model="comment" rows="4" type="text" placeholder="Comentario"></textarea>
+                                </div>
+                                <div class="uk-width-1-1 uk-text-right">
+                                  <StarRating v-bind:star-size="20" v-model="rating"></StarRating>
+                                </div>
+                                <div class="uk-text-right uk-width-1-1">
+                                  <button type="button" class="uk-button red-button" @click="postRateComment">Enviar</button>
                                 </div>
                               </form>
                             </div>
@@ -138,24 +137,11 @@
 
                     </div>
 
-                    <ul class="uk-comment-list uk-margin-left">
-                      <li>
-                        <article class="uk-comment uk-visible-toggle" tabindex="-1">
-                          <div class="uk-comment-header uk-position-relative">
-                            <div class="uk-grid-medium uk-flex-middle" uk-grid>
-                              <div class="uk-width-expand">
-                                <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#">Author</a></h4>
-                                <p class="uk-comment-meta uk-margin-remove-top"><a class="uk-link-reset" href="#">12 days ago</a></p>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="uk-comment-body">
-                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
-                              clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-                          </div>
-                        </article>
+                    <transition-group name="list-complete" tag="ul" class="uk-comment-list uk-margin-left">
+                      <li class="container-comment" v-for="comment in comments" :key="comment.id">
+                        <Comment :comment="comment"></Comment>
                       </li>
-                    </ul>
+                    </transition-group>
                   </div>
                 </li>
               </ul>
@@ -204,37 +190,135 @@
 </template>
 
 <script>
-
 let UIkit;
 
 if (process.browser) {
   UIkit = require('uikit');
 }
 
+import axios from 'axios'
+import StarRating from 'vue-star-rating'
+import Comment from '~/components/Home/components/Comment.vue'
+
 export default {
 
+  components: {
+    StarRating,
+    Comment
+  },
   data() {
     return {
-         numberOfClicks: 0,
-         girl: null
+      numberOfClicks: 0,
+      girl: null,
+      rating: 2,
+      name: "",
+      comment: "",
+      comments: []
     }
   },
   created() {
     // $on method will receive the updated count value from the sender component
     this.$nuxt.$on('SHOWMODALGIRL', data => {
       this.girl = data
-          UIkit.modal(this.$refs.modalgirlcard).show()
+      this.getComments()
+      UIkit.modal(this.$refs.modalgirlcard).show()
     });
   },
   beforeDestroy() {
-      // $off method will turned off the event listner
-      this.$nuxt.$off('SHOWMODALGIRL');
+    // $off method will turned off the event listner
+    this.$nuxt.$off('SHOWMODALGIRL');
   },
-  mounted(){
+  filters: {
+    getAge: function(value) {
+      var today = new Date();
+      var birthDate = new Date(value);
+      var age = today.getFullYear() - birthDate.getFullYear();
+      var m = today.getMonth() - birthDate.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+      }
+      return age;
+    },
+    limitDecimals: function(value){
+      return value.toFixed(1)
+    }
+  },
+  mounted() {
 
+  },
+  methods: {
+
+    getComments: function() {
+      axios
+        .get('http://localhost:1337/escorts/' + this.girl.id)
+        .then(response => {
+          this.comments = response.data.comments,
+          this.setNewRating()
+        })
+        .catch(error => {
+          // Handle error.
+          console.log('An error occurred:', error);
+        });
+    },
+
+    setNewRating: function() {
+      var self = this
+      const commentsQuantity = self.comments.length
+      const rating = self.comments.reduce((acc, item) => acc + item.rate, 0);
+      const finalrate = rating/commentsQuantity
+
+      axios
+        .put('http://localhost:1337/escorts/' + this.girl.id, {
+          rating: finalrate
+        })
+        .then(response => {
+          this.rating = finalrate
+        })
+        .catch(error => {
+          // Handle error.
+          console.log('An error occurred:', error);
+        });
+
+
+    },
+
+    postRateComment: function() {
+
+      axios
+        .post('http://localhost:1337/comments/', {
+          name: this.name,
+          comment: this.comment,
+          rate: this.rating,
+          escort: this.girl.id
+        })
+        .then(response => {
+          // Handle success.
+          this.comments.unshift({
+            id: response.data.id,
+            name: response.data.name,
+            comment: response.data.comment,
+            rate: response.data.rate
+          })
+
+          UIkit.notification({
+            message: 'Gracias por tu comentario',
+            status: 'primary',
+            pos: 'top-center',
+            timeout: 5000
+          });
+
+        })
+        .catch(error => {
+          // Handle error.
+          console.log('An error occurred:', error);
+        });
+    }
   }
 }
 </script>
 
-<style lang="css">
+<style lang="scss">
+.container-comment {
+    transition: all 200ms ease-in-out;
+}
 </style>

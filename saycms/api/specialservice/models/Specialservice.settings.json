@@ -15,8 +15,8 @@
       "default": "",
       "type": "string"
     },
-    "serviceplan": {
-      "model": "serviceplan",
+    "escort": {
+      "model": "escort",
       "via": "specialservices"
     }
   }

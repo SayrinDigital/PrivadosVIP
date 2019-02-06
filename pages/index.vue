@@ -36,7 +36,6 @@
     </section>
 
     <JoinUs></JoinUs>
-    <button @click="openmodal">open</button>
     <ModalGirl :girl="null" ref="modalgirlcard"></ModalGirl>
   </div>
 </transition>

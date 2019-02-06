@@ -40,7 +40,8 @@ export default {
     axios
       .get('http://localhost:1337/escorts', {
         params: {
-          _sort: 'id:desc' // Generates http://localhost:1337/posts?_sort=createdAt:desc
+          _sort: 'id:desc',
+          _limit: 10 // Generates http://localhost:1337/posts?_sort=createdAt:desc
         }
       })
       .then(response => {

@@ -11,14 +11,14 @@
     "comment": ""
   },
   "attributes": {
-    "imagePath": {
+    "image": {
       "model": "file",
       "via": "related",
       "plugin": "upload",
       "required": false
     },
-    "escortgallery": {
-      "model": "escortgallery",
+    "escort": {
+      "model": "escort",
       "via": "photos"
     }
   }

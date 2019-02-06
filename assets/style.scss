@@ -101,6 +101,10 @@ h1,h2,h3,h4,h5,h6{
   }
 }
 
+.text-highlight{
+  color: $highlight-color;
+}
+
 .back-text{
   font-size: calc(.02909*100vw + 100.09091px);
   position: absolute;
@@ -235,6 +239,30 @@ a{
   font-size: 12px;
 }
 
+input.uk-input, textarea.uk-textarea{
+  background: $main-accent;
+  font-family: $t-font;
+  font-size: 14px;
+  border-radius: 10px;
+  color: #fff;
+  &:focus{
+    background: $main-accent;
+    border: 1px solid $section-color;
+    color: #fff;
+  }
+}
+
+.uk-notification-message-primary{
+  background: $main-accent;
+  color: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 10px 10px rgba(0,0,0,0.1);
+  font-family: $t-font;
+  font-size: 14px;
+  border-left: 3px solid $section-color;
+}
+
+
 .hover-animation-move-up{
   transition: all 200ms ease-in-out;
   &:hover{
@@ -273,6 +301,20 @@ a{
 .slide-right-enter {
     opacity: 0;
     transform: translate(-2em, 0);
+}
+
+.list-complete-item {
+  transition: all 1s;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+.list-complete-enter, .list-complete-leave-to
+/* .list-complete-leave-active below version 2.1.8 */ {
+  opacity: 0;
+  transform: translateX(30px);
+}
+.list-complete-leave-active {
+  position: absolute;
 }
 
 ::-webkit-scrollbar {

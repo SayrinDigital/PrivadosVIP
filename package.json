@@ -14,7 +14,8 @@
     "@nuxtjs/axios": "^5.3.6",
     "cross-env": "^5.2.0",
     "nuxt": "^2.3.4",
-    "uikit": "^3.0.3"
+    "uikit": "^3.0.3",
+    "vue-star-rating": "^1.6.1"
   },
   "devDependencies": {
     "node-sass": "^4.11.0",

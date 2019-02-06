@@ -45,20 +45,24 @@
       "plugin": "upload",
       "required": false
     },
-    "escortgallery": {
-      "model": "escortgallery",
-      "via": "escort"
-    },
     "comments": {
       "collection": "comment",
       "via": "escort"
     },
     "rating": {
-      "default": "",
+      "default": 0,
       "type": "decimal"
     },
-    "serviceplan": {
-      "model": "serviceplan",
+    "includedservices": {
+      "collection": "includedservice",
+      "via": "escort"
+    },
+    "specialservices": {
+      "collection": "specialservice",
+      "via": "escort"
+    },
+    "photos": {
+      "collection": "photo",
       "via": "escort"
     }
   }

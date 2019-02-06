@@ -15,15 +15,19 @@
       "default": "",
       "type": "text"
     },
-    "qualification": {
+    "rate": {
       "default": "",
-      "max": 7,
+      "max": 5,
       "min": 1,
       "type": "integer"
     },
     "escort": {
       "model": "escort",
       "via": "comments"
+    },
+    "name": {
+      "default": "",
+      "type": "string"
     }
   }
 }
