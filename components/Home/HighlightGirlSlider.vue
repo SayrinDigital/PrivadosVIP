@@ -46,6 +46,7 @@ export default {
         // Handle success.
         //console.log('Well done, here is the list of posts: ', response.data);
         this.girls = response.data
+        this.girls.sort((a, b) => Math.random() > .5 ? -1 : 1);
       })
       .catch(error => {
         // Handle error.
