@@ -63,7 +63,7 @@
             <h1>Selecciona Tu Categoría</h1>
 
         <div class="uk-section">
-          <div uk-scrollspy="cls: uk-animation-fade; target: > div; delay: 200" class="uk-child-width-1-4@l uk-child-width-1-3@m uk-child-width-1-2@s uk-child-width-1-1 uk-grid-small" uk-grid>
+          <div uk-scrollspy="cls: uk-animation-fade; target: > div; delay: 200" class="uk-child-width-1-4@l uk-child-width-1-3@m uk-child-width-1-2@s uk-child-width-1-1 uk-grid-small uk-grid" uk-grid>
             <div v-for="category in categories" v-bind:key="category.id">
                 <CategoryCard :category="category"></CategoryCard>
             </div>
@@ -82,6 +82,7 @@
 
 <script>
 
+import axios from 'axios'
 import CategoryCard from '~/components/CategoryCard.vue'
 
 export default {
@@ -91,17 +92,25 @@ export default {
   },
   data(){
     return{
-         categories : [
-           { 'id' : 1, 'name' : 'VIP', 'cover' : 'https://images.unsplash.com/photo-1508386337243-4bebc7ec0ea9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=632&q=80' },
-           { 'id' : 2, 'name' : 'Premium', 'cover' : 'https://images.unsplash.com/photo-1512310604669-443f26c35f52?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=675&q=80' },
-           { 'id' : 3, 'name' : 'GOLD', 'cover' : 'https://images.unsplash.com/photo-1502860372601-2a663136d5a2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1432&q=80' },
-           { 'id' : 4, 'name' : 'Maduras', 'cover' : 'https://images.unsplash.com/photo-1515132292160-8ccaa03661f3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80' },
-           { 'id' : 5, 'name' : 'Masajistas', 'cover' : 'https://images.unsplash.com/photo-1505676287926-c20025d6cb49?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1489&q=80' },
-           { 'id' : 6, 'name' : 'Masajistas', 'cover' : 'https://images.unsplash.com/photo-1505516135770-ffd5e16648c3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1489&q=80' },
-           { 'id' : 7, 'name' : 'Masajistas', 'cover' : 'https://images.unsplash.com/photo-1547513609-d80733850d2e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80' },
-           { 'id' : 8, 'name' : 'Masajistas', 'cover' : 'https://images.unsplash.com/photo-1518561602890-728830e35ed2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1264&q=80' },
-         ]
+         categories : []
     }
-  }
+  },
+  mounted() {
+    axios
+      .get('http://localhost:1337/categories', {
+        params: {
+          _sort: 'name:desc' // Generates http://localhost:1337/posts?_sort=createdAt:desc
+        }
+      })
+      .then(response => {
+        // Handle success.
+        //console.log('Well done, here is the list of posts: ', response.data);
+        this.categories = response.data
+      })
+      .catch(error => {
+        // Handle error.
+        console.log('An error occurred:', error);
+      });
+  },
 }
 </script>

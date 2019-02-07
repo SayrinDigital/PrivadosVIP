@@ -11,23 +11,36 @@
   <div key="2" v-else>
     <Header></Header>
     <HighlightGirls></HighlightGirls>
+
+      <div>
+        <div class="uk-container uk-text-center">
+          <img class="uk-box-shadow-large  uk-border-rounded" uk-img src="http://www.sexshoptentaciones.com/prima2011/banner_nuevo.gif"></img>
+        </div>
+      </div>
+
     <BestQualified></BestQualified>
+
+    <div>
+      <div class="uk-container uk-text-center">
+        <img class="uk-box-shadow-large uk-border-rounded" uk-img src="https://cdn2.f-cdn.com/contestentries/1300306/20633781/5acb9efa51509_thumb900.jpg"></img>
+      </div>
+    </div>
 
 
     <section class="uk-section">
       <div class="uk-container uk-container-large">
         <div class="" uk-grid>
-          <div class="uk-width-3-5">
+          <div class="uk-width-3-5@m">
             <div>
               <AllGirls></AllGirls>
             </div>
           </div>
-          <div class="uk-width-2-5">
+          <div class="uk-width-2-5@m">
             <div id="highlightgirlcontainer" uk-sticky="bottom: true">
               <p class="section-header">Scorts</p>
               <h1>Destacadas</h1>
-              <div class="uk-section uk-section-small">
-                <!--<GirlCard :girl="girl"></GirlCard>-->
+              <div>
+                <HighlightGirlSlider></HighlightGirlSlider>
               </div>
             </div>
           </div>
@@ -35,6 +48,11 @@
       </div>
     </section>
 
+    <div>
+      <div class="uk-container uk-text-center">
+        <img class="uk-box-shadow-large uk-border-rounded" uk-img src="https://cdn2.f-cdn.com/contestentries/1300306/20633781/5acb9efa51509_thumb900.jpg"></img>
+      </div>
+    </div>
     <JoinUs></JoinUs>
     <ModalGirl :girl="null" ref="modalgirlcard"></ModalGirl>
   </div>
@@ -52,6 +70,7 @@ import AllGirls from '~/components/Home/AllGirls.vue'
 import GirlCard from '~/components/Home/components/GirlCard.vue'
 import JoinUs from '~/components/Home/JoinUs.vue'
 import ModalGirl from '~/components/Home/components/ModalGirl.vue'
+import HighlightGirlSlider from '~/components/Home/HighlightGirlSlider.vue'
 
 let UIkit;
 
@@ -73,11 +92,7 @@ export default {
   },
   data() {
     return {
-      girl: {
-        "id" : 2,
-        "name": "Carmen",
-        "cover" : "https://images.unsplash.com/photo-1515161318750-781d6122e367?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=624&q=80"
-      },
+
       isloading: true
     }
   },
@@ -89,7 +104,8 @@ export default {
     AllGirls,
     GirlCard,
     JoinUs,
-    ModalGirl
+    ModalGirl,
+    HighlightGirlSlider
   },
   mounted() {
     setTimeout(() => this.isloading = false, 1000)

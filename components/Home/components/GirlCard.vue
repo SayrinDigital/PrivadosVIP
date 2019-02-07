@@ -1,8 +1,8 @@
 <template>
 <div>
-  <a class="uk-display-block hover-animation-move-up " @click="increment">
+  <a class="uk-display-block" @click="increment">
     <div>
-      <div class="uk-position-relative girl-card-container uk-inline uk-border-rounded uk-overflow-hidden">
+      <div class="uk-position-relative   girl-card-container uk-inline uk-border-rounded uk-overflow-hidden">
         <img :src="'http://localhost:1337' + girl.profilephoto.url" uk-img alt="">
         <div class="uk-overlay uk-position-cover gradient-overlay"></div>
         <div class="uk-overlay uk-position-bottom-left">

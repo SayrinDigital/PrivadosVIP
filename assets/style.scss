@@ -342,3 +342,24 @@ input.uk-input, textarea.uk-textarea{
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+.animation-spy{
+  opacity: 0;
+  &.start{
+   opacity: 1;
+  }
+}
+
+select{
+  &.uk-select{
+    background: $main-accent;
+    color: #fff;
+    font-family: $t-font;
+    border: none;
+    border-radius: 5px;
+    &:focus{
+        background: $main-accent;
+      border: 0;
+    }
+  }
+}

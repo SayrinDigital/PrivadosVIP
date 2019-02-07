@@ -4,7 +4,7 @@
   <h1>Nuestras Chicas</h1>
 
   <div class="uk-section uk-section-small">
-    <div class="uk-child-width-1-4@l uk-child-width-1-2@m uk-child-width-1-1 uk-grid-small" uk-grid uk-scrollspy="cls: uk-animation-slide-bottom-medium; target: > div > div; delay: 100;">
+    <div class=" uk-child-width-1-4@m uk-child-width-1-3 uk-grid-small" uk-grid uk-scrollspy="cls: uk-animation-slide-bottom-medium; target: > div > div; delay: 100;">
       <div v-for="girl in girls">
         <GirlCard :girl="girl"></GirlCard>
       </div>

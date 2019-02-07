@@ -1,20 +1,24 @@
 <template>
-<section class="uk-section">
 
-  <div class="uk-container uk-container-large">
-    <p class="section-header">Scorts</p>
-    <h1>Destacadas</h1>
+  <section >
 
-    <div class="uk-section uk-section-small">
-      <div class="uk-child-width-1-5@l uk-child-width-1-4@m uk-child-width-1-3@s uk-child-width-1-3 uk-grid-small" uk-grid uk-scrollspy="cls: uk-animation-slide-right-medium; target: > div > div; delay: 100;">
-        <div v-for="girl in girls" >
-          <GirlCard :girl="girl"></GirlCard>
+    <div class="uk-container uk-container-large">
+
+
+      <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="ratio: false; autoplay: true; autoplay-interval: 1000">
+        <div class="uk-section uk-section-small">
+          <ul class="uk-slideshow-items" uk-height-viewport="min-height: 300">
+            <li v-for="girl in girls" >
+              <GirlCard :girl="girl"></GirlCard>
+            </li>
+          </ul>
         </div>
       </div>
-    </div>
-  </div>
 
-</section>
+    </div>
+
+  </section>
+
 </template>
 
 <script>
@@ -28,7 +32,7 @@ export default {
     }
   },
   components: {
-    GirlCard
+    GirlCard,
   },
   mounted() {
     axios

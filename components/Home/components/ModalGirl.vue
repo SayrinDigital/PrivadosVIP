@@ -35,7 +35,7 @@
                     <div>
                       <div class="uk-text-right">
                         <a :href="'tel:' +  girl.phone" :uk-tooltip="girl.phone" class="uk-display-block uk-margin-bottom"><span class="uk-icon uk-icon-button" uk-icon="icon: phone"></span></a>
-                        <a :href="'https://api.whatsapp.com/send?phone=' + girl.phone + '&text=Hola, te escribo desde Privados VIP' " class=""><span class="uk-icon uk-icon-button" uk-icon="icon: whatsapp"></span></a>
+                        <a :href="'https://api.whatsapp.com/send?phone=' + girl.phone + '&text=' + wspmessage " class=""><span class="uk-icon uk-icon-button" uk-icon="icon: whatsapp"></span></a>
                       </div>
                     </div>
                   </div>
@@ -205,7 +205,8 @@ export default {
       comment: "",
       comments: [],
       gallery: [],
-      ratingfinal: 0
+      ratingfinal: 0,
+      wspmessage: ""
     }
   },
   created() {
@@ -213,6 +214,7 @@ export default {
     this.$nuxt.$on('SHOWMODALGIRL', data => {
       this.girl = data
       this.getComments()
+      this.getWhatsappMessage()
       UIkit.modal(this.$refs.modalgirlcard).show()
     });
   },
@@ -320,6 +322,19 @@ export default {
         })
         .then(response => {
           this.gallery = response.data
+        })
+        .catch(error => {
+          // Handle error.
+          console.log('An error occurred:', error);
+        })
+    },
+
+    getWhatsappMessage: function(){
+      axios
+        .get('http://localhost:1337/whatsapps/')
+        .then(response => {
+          var message = response.data[0].message
+          this.wspmessage = message.replace('{{ nombre }}', this.girl.name)
         })
         .catch(error => {
           // Handle error.

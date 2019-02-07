@@ -1,8 +1,8 @@
 {
   "connection": "default",
-  "collectionName": "galleryphotos",
+  "collectionName": "categories",
   "info": {
-    "name": "galleryphoto",
+    "name": "category",
     "description": ""
   },
   "options": {
@@ -11,15 +11,19 @@
     "comment": ""
   },
   "attributes": {
-    "image": {
+    "name": {
+      "default": "",
+      "type": "string"
+    },
+    "cover": {
       "model": "file",
       "via": "related",
       "plugin": "upload",
       "required": false
     },
-    "gallery": {
-      "model": "gallery",
-      "via": "galleryphotos"
+    "escorts": {
+      "collection": "escort",
+      "via": "category"
     }
   }
 }
