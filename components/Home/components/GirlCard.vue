@@ -1,12 +1,12 @@
 <template>
 <div>
   <a class="uk-display-block" @click="increment">
-    <div>
+    <div v-if="girl">
       <div class="uk-position-relative   girl-card-container uk-inline uk-border-rounded uk-overflow-hidden">
         <img :src="'http://localhost:1337' + girl.profilephoto.url" uk-img alt="">
         <div class="uk-overlay uk-position-cover gradient-overlay"></div>
-        <div class="uk-overlay uk-position-bottom-left">
-          <p class="tag"><span class="uk-margin-small-right" uk-icon="icon: star"></span>VIP</p>
+        <div class="uk-overlay uk-position-bottom-left" v-if="girl.category">
+          <p class="tag" ><span class="uk-margin-small-right" uk-icon="icon: star"></span>{{ girl.category.name }}</p>
           <h4 class="name">{{ girl.name }}</h4>
         </div>
       </div>

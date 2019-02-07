@@ -68,6 +68,30 @@
     "gallery": {
       "model": "gallery",
       "via": "escort"
+    },
+    "email": {
+      "default": "",
+      "type": "email"
+    },
+    "password": {
+      "default": "",
+      "type": "password"
+    },
+    "price": {
+      "default": "",
+      "type": "integer"
+    },
+    "datework": {
+      "default": "",
+      "type": "string"
+    },
+    "startpublishing": {
+      "default": "",
+      "type": "date"
+    },
+    "endpublishing": {
+      "default": "",
+      "type": "date"
     }
   }
 }

@@ -23,27 +23,37 @@ export default {
   },
   data() {
     return {
-      girls: null
+      girlsChunk: []
+      girls: [],
+      size: 5
     }
   },
   mounted() {
-    axios
-      .get('http://localhost:1337/escorts', {
-        params: {
-          _sort: 'id:desc' // Generates http://localhost:1337/posts?_sort=createdAt:desc
-        }
-      })
-      .then(response => {
-        // Handle success.
-        //console.log('Well done, here is the list of posts: ', response.data);
-        this.girls = response.data
-        this.girls.sort((a, b) => Math.random() > .5 ? -1 : 1);
-      })
-      .catch(error => {
-        // Handle error.
-        console.log('An error occurred:', error);
-      });
+    this.loadEscorts()
   },
+  methods: {
+    loadEscorts: function(){
+      axios
+        .get('http://localhost:1337/escorts', {
+          params: {
+            _sort: 'id:desc' // Generates http://localhost:1337/posts?_sort=createdAt:desc
+          }
+        })
+        .then(response => {
+          // Handle success.
+          //console.log('Well done, here is the list of posts: ', response.data);
+          this.girls = response.data
+          this.girls.sort((a, b) => Math.random() > .5 ? -1 : 1);
+        })
+        .catch(error => {
+          // Handle error.
+          console.log('An error occurred:', error);
+        });
+    },
+    loadAmountEscorts: function(size){
+
+    }
+  }
 
 }
 </script>

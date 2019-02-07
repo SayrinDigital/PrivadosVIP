@@ -363,3 +363,11 @@ select{
     }
   }
 }
+
+.badge-highlight{
+  background: $main-accent;
+  font-family: $h-font;
+  color: $highlight-color;
+  height: 25px;
+  font-size: 18px;
+}

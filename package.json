@@ -15,7 +15,8 @@
     "cross-env": "^5.2.0",
     "nuxt": "^2.3.4",
     "uikit": "^3.0.3",
-    "vue-star-rating": "^1.6.1"
+    "vue-star-rating": "^1.6.1",
+    "vue2-filters": "^0.4.1"
   },
   "devDependencies": {
     "node-sass": "^4.11.0",

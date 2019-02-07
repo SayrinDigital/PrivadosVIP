@@ -17,7 +17,7 @@
                     <div>
                       <div class="girl-card-container">
                         <h4>{{ girl.name }}</h4>
-                        <p class="tag"> <span class="uk-icon uk-margin-small-right" uk-icon="icon: star;"></span><span class="uk-highlight">{{ ratingfinal | limitDecimals }}</span></p>
+                        <p class="tag"> <span class="uk-icon uk-margin-small-right" uk-icon="icon: star;"></span><span class="uk-highlight">{{ ratingfinal }}</span></p>
                       </div>
                     </div>
                     <div>
@@ -28,8 +28,8 @@
                     </div>
                     <div>
                       <div>
-                        <p><span class="uk-margin-small-right" uk-icon="icon: calendar;"></span> {{ girl.birthdate | getAge }} años</p>
-                        <p><span class="uk-margin-small-right" uk-icon="icon: happy;"></span> {{ girl.weight }} kgs. - {{ girl.height }} mts.</p>
+                        <p><span class="uk-margin-small-right" uk-icon="icon: calendar;"></span> {{ girl.datework }}</p>
+                        <p><span class="uk-margin-small-right" uk-icon="icon: happy;"></span>{{ girl.birthdate | getAge }} años - {{ girl.weight }} kgs. - {{ girl.height }} mts.</p>
                       </div>
                     </div>
                     <div>
@@ -53,7 +53,14 @@
 
         <div uk-grid>
           <div class="uk-width-medium uk-position-relative">
-            <div v-if="girl" class="photo-container uk-border-rounded uk-background-cover" uk-img :data-src="'http://localhost:1337' + girl.profilephoto.url"></div>
+            <div v-if="girl" class="uk-position-relative photo-container uk-border-rounded uk-background-cover" uk-img :data-src="'http://localhost:1337' + girl.profilephoto.url">
+              <div class="uk-position-top-right">
+                <div class="uk-padding-small">
+                  <!--<h3 class="text-highlight">{{ girl.price | currency('$',0) }}</h3>-->
+                  <span class="uk-badge badge-highlight">{{ girl.price| currency('$',0) }} CLP</span>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="uk-width-expand">
 
@@ -93,7 +100,7 @@
                       </div>
 
                       <div>
-                        <h4>Especiales</h4>
+                        <h4>Adicionales</h4>
                         <ul class="uk-list uk-list-large uk-list-divider">
                           <li v-for="sservice in girl.specialservices">
                             {{ sservice.name }}
@@ -235,6 +242,10 @@ export default {
     },
     limitDecimals: function(value) {
       return value.toFixed(1)
+    },
+    getCurrency: function(value){
+      let val = (value/1).toFixed(2).replace('.', ',')
+       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
     }
   },
   mounted() {
