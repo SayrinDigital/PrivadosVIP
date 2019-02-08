@@ -108,7 +108,10 @@ export default {
     HighlightGirlSlider
   },
   mounted() {
-    setTimeout(() => this.isloading = false, 1000)
+    this.$nextTick(function () {
+        setTimeout(() => this.isloading = false, 1000)
+  })
+
   },
   methods: {
     openmodal: function(){

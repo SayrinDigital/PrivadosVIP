@@ -27,10 +27,6 @@
       "default": "",
       "type": "string"
     },
-    "weight": {
-      "default": "",
-      "type": "string"
-    },
     "height": {
       "default": "",
       "type": "string"
@@ -92,6 +88,14 @@
     "endpublishing": {
       "default": "",
       "type": "date"
+    },
+    "characteristics": {
+      "collection": "characteristic",
+      "via": "escort"
+    },
+    "weightescort": {
+      "model": "weightescort",
+      "via": "escort"
     }
   }
 }

@@ -1,53 +1,7 @@
 <template>
 <div class="uk-section">
   <div class="uk-container uk-container-large">
-    <div v-if="isloading == false" >
-        <h1 class="light">Filtrar Búsqueda</h1>
 
-        <div uk-scrollspy="cls: uk-animation-fade; target: > div > button; delay: 200; repeat: true" class="uk-section uk-section-small">
-          <div uk-form-custom="target: > * > span:first-child">
-            <select>
-              <option value="">Todas</option>
-              <option value="1">Option 01</option>
-              <option value="2">Option 02</option>
-              <option value="3">Option 03</option>
-              <option value="4">Option 04</option>
-            </select>
-            <button class="uk-button" type="button" tabindex="-1">
-              <span></span>
-              <span uk-icon="icon: chevron-down"></span>
-            </button>
-          </div>
-
-          <div uk-form-custom="target: > * > span:first-child">
-            <select>
-              <option value="">Contextura</option>
-              <option value="1">Option 01</option>
-              <option value="2">Option 02</option>
-              <option value="3">Option 03</option>
-              <option value="4">Option 04</option>
-            </select>
-            <button class="uk-button" type="button" tabindex="-1">
-              <span></span>
-              <span uk-icon="icon: chevron-down"></span>
-            </button>
-          </div>
-
-          <div uk-form-custom="target: > * > span:first-child">
-            <select>
-              <option value="">Edad</option>
-              <option value="1">Option 01</option>
-              <option value="2">Option 02</option>
-              <option value="3">Option 03</option>
-              <option value="4">Option 04</option>
-            </select>
-            <button class="uk-button" type="button" tabindex="-1">
-              <span></span>
-              <span uk-icon="icon: chevron-down"></span>
-            </button>
-          </div>
-        </div>
-    </div>
     <section class="uk-section uk-section-small">
       <div class="uk-container uk-container-large">
         <div class="" uk-grid>

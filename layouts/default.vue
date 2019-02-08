@@ -90,7 +90,7 @@
                 <div>
                   <h4>Links de Interés</h4>
                   <ul class="uk-list uk-list-large">
-                    <li><a href="">Glosario</a></li>
+                    <li><nuxt-link to="/glosario">Glosario</nuxt-link></li>
                     <!--<li><a href="">Category</a></li>
                     <li><a href="">Category</a></li>-->
                   </ul>

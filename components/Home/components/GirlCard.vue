@@ -1,9 +1,9 @@
 <template>
-<div>
+
   <a class="uk-display-block" @click="increment">
     <div v-if="girl">
       <div class="uk-position-relative   girl-card-container uk-inline uk-border-rounded uk-overflow-hidden">
-        <img :src="'http://localhost:1337' + girl.profilephoto.url" uk-img alt="">
+        <img v-if="girl.profilephoto" :src="'http://localhost:1337' + girl.profilephoto.url" uk-img alt="">
         <div class="uk-overlay uk-position-cover gradient-overlay"></div>
         <div class="uk-overlay uk-position-bottom-left" v-if="girl.category">
           <p class="tag" ><span class="uk-margin-small-right" uk-icon="icon: star"></span>{{ girl.category.name }}</p>
@@ -13,13 +13,6 @@
     </div>
   </a>
 
-  <!--<div  class="uk-modal-container" ref="modalgirlcard" uk-modal>
-    <div class="uk-modal-dialog uk-modal-body">
-      <button class="uk-modal-close-default" type="button" uk-close></button>
-      <ModalGirl :girl="girl"></ModalGirl>
-    </div>
-  </div>-->
-</div>
 </template>
 
 <script>
