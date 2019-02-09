@@ -4,7 +4,7 @@
     <nav class="uk-navbar-container uk-position-relative uk-navbar-transparent" id="mainnav" uk-navbar="mode: click">
 
       <div class="uk-navbar-left">
-        <nuxt-link class="uk-navbar-item uk-logo " to="/"><span class="text-highlight">PrivadosVIP</span></nuxt-link>
+        <nuxt-link class="uk-navbar-item uk-logo" to="/"><span class="text-highlight">PrivadosVIP {{ $store.state.role }}</span></nuxt-link>
       </div>
 
       <div class="uk-navbar-right">
@@ -44,7 +44,7 @@
         </div>
 
         <div class="uk-navbar-item">
-          <button class="uk-button red-button"> Publícate Aquí </button>
+          <nuxt-link to="/login" tag="button" class="uk-button red-button"> Iniciar Sesión </nuxt-link>
         </div>
 
       </div>

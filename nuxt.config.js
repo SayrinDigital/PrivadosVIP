@@ -45,12 +45,14 @@ module.exports = {
   */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    '@nuxtjs/auth'
   ],
   /*
   ** Axios module configuration
   */
   axios: {
+    baseURL: 'http://localhost:1337'
     // See https://github.com/nuxt-community/axios-module#options
   },
 

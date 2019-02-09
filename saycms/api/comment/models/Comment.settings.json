@@ -28,6 +28,10 @@
     "name": {
       "default": "",
       "type": "string"
+    },
+    "client": {
+      "model": "client",
+      "via": "comments"
     }
   }
 }

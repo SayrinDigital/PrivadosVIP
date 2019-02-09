@@ -96,6 +96,11 @@
     "weightescort": {
       "model": "weightescort",
       "via": "escort"
+    },
+    "user": {
+      "model": "user",
+      "via": "escort",
+      "plugin": "users-permissions"
     }
   }
 }

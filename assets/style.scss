@@ -247,7 +247,8 @@ input.uk-input, textarea.uk-textarea{
   color: #fff;
   &:focus{
     background: $main-accent;
-    border: 1px solid $section-color;
+
+    border-color: $section-color;
     color: #fff;
   }
 }
