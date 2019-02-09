@@ -151,6 +151,7 @@ import { mapMutations } from 'vuex'
 export default {
   transition: 'fade',
   layout : 'login',
+  middleware: 'notAuthenticated',
   data() {
     return{
       response: null,
