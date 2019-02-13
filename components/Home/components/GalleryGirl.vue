@@ -1,7 +1,7 @@
 <template>
 
-  <a data-type="image" :href="'http://localhost:1337' + photo.image.url">
-    <div class="uk-background-cover uk-border-rounded item-gallery" :data-src="'http://localhost:1337' + photo.image.url" uk-img>
+  <a data-type="image" :href="baseUrl + photo.image.url">
+    <div class="uk-background-cover uk-border-rounded item-gallery" :data-src="baseUrl + photo.image.url" uk-img>
 
     </div>
 
@@ -10,8 +10,17 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
-  props: ['photo']
+  data(){
+    return{
+      baseUrl : "",
+    }
+  },
+  props: ['photo'],
+  beforeMount(){
+   this.baseUrl =  this.$axios.defaults.baseURL
+  }
 }
 </script>
 

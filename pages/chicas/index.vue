@@ -5,12 +5,12 @@
     <section class="uk-section uk-section-small">
       <div class="uk-container uk-container-large">
         <div class="" uk-grid>
-          <div class="uk-width-3-5">
+          <div class="uk-width-3-5@m">
             <div>
               <AllGirls></AllGirls>
             </div>
           </div>
-          <div class="uk-width-2-5">
+          <div class="uk-width-2-5@m">
             <div uk-scrollspy="cls:uk-animation-slide-bottom-small" id="highlightgirlcontainer" uk-sticky="bottom: true">
               <p class="section-header">Scorts</p>
               <h1>Destacadas</h1>
@@ -23,13 +23,13 @@
       </div>
     </section>
 
-    <ModalGirl :girl="null" ref="modalgirlcard"></ModalGirl>
 
   </div>
 </div>
 </template>
 
 <script>
+import axios from 'axios'
 import AllGirls from '~/components/Home/AllGirls.vue'
 import GirlCard from '~/components/Home/components/GirlCard.vue'
 import ModalGirl from '~/components/Home/components/ModalGirl.vue'

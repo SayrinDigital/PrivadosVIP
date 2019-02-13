@@ -8,35 +8,54 @@
           <div class="uk-width-medium uk-position-relative">
 
           </div>
-          <div class="uk-width-expand">
+          <div class="uk-width-expand@m">
             <div>
               <div v-if="girl">
 
+                <div  v-if="girl" class="uk-hidden@m uk-position-relative photo-container uk-border-rounded uk-background-cover" uk-img :data-src="baseUrl + girl.profilephoto.url">
+                  <div class="uk-position-top-right">
+                    <div class="uk-padding-small">
+                      <!--<h3 class="text-highlight">{{ girl.price | currency('$',0) }}</h3>-->
+                      <span class="uk-badge badge-highlight">{{ girl.price| currency('$',0) }} CLP</span>
+                    </div>
+                  </div>
+                  <div class="uk-position-bottom-left">
+                    <div class="uk-padding-small">
+                      <a :href="'tel:' +  girl.phone" :uk-tooltip="girl.phone" class="uk-margin-small-right"><span class="uk-icon uk-icon-button" uk-icon="icon: phone"></span></a>
+                      <a :href="'https://wa.me/' + girl.phone + '/?text=' + wspmessage " class=""><span class="uk-icon uk-icon-button" uk-icon="icon: whatsapp"></span></a>
+                    </div>
+                  </div>
+                </div>
+
                 <div class="uk-card-body">
-                  <div class="uk-child-width-1-4" uk-grid>
+                  <div class="uk-child-width-1-4@m uk-grid-small uk-child-width-1-2@s uk-child-width-1-1" uk-grid>
                     <div>
                       <div class="girl-card-container">
-                        <h4>{{ girl.name }}</h4>
+                        <h4 class="uk-margin">{{ girl.name }}</h4>
+                      </div>
+                    </div>
+                    <div>
+                      <div>
                         <p class="tag"> <span class="uk-icon uk-margin-small-right" uk-icon="icon: star;"></span><span class="uk-highlight">{{ ratingfinal }}</span></p>
                       </div>
                     </div>
                     <div>
                       <div>
                         <p><span class="uk-margin-small-right" uk-icon="icon: location;"></span> {{ girl.location }}</p>
-                        <p><span class="uk-margin-small-right" uk-icon="icon: phone;"></span> {{ girl.phone }}</p>
+                      </div>
+                    </div>
+                    <div>
+                      <div>
+                        <p class="text-highlight"><span class="uk-margin-small-right" uk-icon="icon: phone;"></span> {{ girl.phone }}</p>
                       </div>
                     </div>
                     <div>
                       <div>
                         <p><span class="uk-margin-small-right" uk-icon="icon: calendar;"></span> {{ girl.datework }}</p>
-                        <p><span class="uk-margin-small-right" uk-icon="icon: happy;"></span>{{ girl.birthdate | getAge }} años - {{ girl.weight }} kgs. - {{ girl.height }} mts.</p>
                       </div>
                     </div>
                     <div>
-                      <div class="uk-text-right">
-                        <a :href="'tel:' +  girl.phone" :uk-tooltip="girl.phone" class="uk-display-block uk-margin-bottom"><span class="uk-icon uk-icon-button" uk-icon="icon: phone"></span></a>
-                        <a :href="'https://api.whatsapp.com/send?phone=' + girl.phone + '&text=' + wspmessage " class=""><span class="uk-icon uk-icon-button" uk-icon="icon: whatsapp"></span></a>
-                      </div>
+                      <div>                        <p><span class="uk-margin-small-right" uk-icon="icon: happy;"></span>{{ girl.birthdate | getAge }} años - {{ girl.weight }} kgs. - {{ girl.height }} mts.</p></div>
                     </div>
                   </div>
                 </div>
@@ -52,17 +71,23 @@
       <div class="body uk-card-body">
 
         <div uk-grid>
-          <div class="uk-width-medium uk-position-relative">
-            <div v-if="girl" class="uk-position-relative photo-container uk-border-rounded uk-background-cover" uk-img :data-src="'http://localhost:1337' + girl.profilephoto.url">
+          <div class="uk-width-medium@s uk-width-1-1 uk-position-relative">
+            <div  v-if="girl" class="uk-visible@m uk-position-relative photo-container uk-border-rounded uk-background-cover" uk-img :data-src="baseUrl + girl.profilephoto.url">
               <div class="uk-position-top-right">
                 <div class="uk-padding-small">
                   <!--<h3 class="text-highlight">{{ girl.price | currency('$',0) }}</h3>-->
                   <span class="uk-badge badge-highlight">{{ girl.price| currency('$',0) }} CLP</span>
                 </div>
               </div>
+              <div class="uk-position-bottom-left">
+                <div class="uk-padding-small">
+                  <a :href="'tel:' +  girl.phone" :uk-tooltip="girl.phone" class="uk-margin-small-right"><span class="uk-icon uk-icon-button" uk-icon="icon: phone"></span></a>
+                  <a :href="'https://wa.me/' + girl.phone + '/?text=' + wspmessage " class=""><span class="uk-icon uk-icon-button" uk-icon="icon: whatsapp"></span></a>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="uk-width-expand">
+          <div class="uk-width-expand@m uk-margin">
 
             <div class="info-container">
 
@@ -159,16 +184,14 @@
           </div>
         </div>
 
-        <!-- Gallery Slider-->
-
         <div v-if="gallery" class="uk-section uk-section-small">
           <div  class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slider>
 
-            <transition-group name="list-complete" tag="ul" class="uk-slider-items uk-child-width-1-4 uk-grid-small uk-grid" uk-lightbox="animation: slide">
+            <ul  class="uk-slider-items uk-child-width-1-4@l uk-child-width-1-3@m uk-child-width-1-2 uk-grid-small uk-grid" uk-lightbox="animation: slide">
               <li v-for="photo in gallery" :key="photo.id">
                 <GalleryGirl :photo="photo"></GalleryGirl>
               </li>
-              </transition-group>
+            </ul>
 
             <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
             <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slider-item="next"></a>
@@ -213,19 +236,19 @@ export default {
       comments: [],
       gallery: [],
       ratingfinal: 0,
-      wspmessage: ""
+      wspmessage: "",
+        baseUrl : "",
     }
   },
   created() {
     // $on method will receive the updated count value from the sender component
     this.$nuxt.$on('SHOWMODALGIRL', data => {
       this.girl = data
-      this.getComments()
-      this.getWhatsappMessage()
-      UIkit.modal(this.$refs.modalgirlcard).show()
+      this.openModal()
     });
   },
-  beforeDestroy() {
+
+  destroyed() {
     // $off method will turned off the event listner
     this.$nuxt.$off('SHOWMODALGIRL');
   },
@@ -248,14 +271,23 @@ export default {
        return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
     }
   },
+  beforeMount(){
+    this.baseUrl =  this.$axios.defaults.baseURL
+  },
   mounted() {
 
   },
   methods: {
 
+    openModal: function(){
+      this.getComments()
+      this.getWhatsappMessage()
+      UIkit.modal(this.$refs.modalgirlcard).show()
+      console.log('mierda')
+    },
     getComments: function() {
       axios
-        .get('http://localhost:1337/escorts/' + this.girl.id,{
+        .get(this.baseUrl + '/escorts/' + this.girl.id,{
           params:{
             _sort: 'id:desc'
           }
@@ -278,7 +310,7 @@ export default {
       const finalrate = rating / commentsQuantity
 
       axios
-        .put('http://localhost:1337/escorts/' + this.girl.id, {
+        .put(this.baseUrl + '/escorts/' + this.girl.id, {
           rating: finalrate
         })
         .then(response => {
@@ -295,7 +327,7 @@ export default {
     postRateComment: function() {
 
       axios
-        .post('http://localhost:1337/comments/', {
+        .post(this.baseUrl + '/comments/', {
           name: this.name,
           comment: this.comment,
           rate: this.rating,
@@ -326,7 +358,7 @@ export default {
 
     getGallery: function() {
       axios
-        .get('http://localhost:1337/galleryphotos/', {
+        .get(this.baseUrl + '/photos/', {
           params: {
             'escort': this.girl.id
           }
@@ -342,7 +374,7 @@ export default {
 
     getWhatsappMessage: function(){
       axios
-        .get('http://localhost:1337/whatsapps/')
+        .get(this.baseUrl + '/whatsapps/')
         .then(response => {
           var message = response.data[0].message
           this.wspmessage = message.replace('{{ nombre }}', this.girl.name)

@@ -1,6 +1,6 @@
 <template>
 
-  <nuxt-link tag="div"  :to="{name: 'categorias-id', params: { id: category.id } }" class="category-card cursor-pointer uk-background-cover uk-position-relative uk-border-rounded uk-box-shadow-hover-medium" uk-img :data-src="'http://localhost:1337' + category.cover.url">
+  <nuxt-link tag="div"  :to="{name: 'categorias-id', params: { id: category.id } }" class="category-card cursor-pointer uk-background-cover uk-position-relative uk-border-rounded uk-box-shadow-hover-medium" uk-img :data-src="baseUrl + category.cover.url">
     <div class="uk-overlay uk-position-cover gradient-overlay"></div>
     <div class="uk-overlay uk-position-bottom-left">
       <h4 class="name">{{ category.name }}</h4>
@@ -11,7 +11,15 @@
 
 <script>
 export default {
-  props: ['category']
+  data(){
+    return{
+      baseUrl : ""
+    }
+  },
+  mounted(){
+     this.baseUrl =  this.$axios.defaults.baseURL
+  },
+  props: ['category'],
 }
 </script>
 

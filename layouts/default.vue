@@ -1,5 +1,6 @@
 <template>
 <div>
+  <demo-adaptive-modal/>
   <div v-if="isloading == false" uk-sticky="animation: uk-animation-slide-top; sel-target: .uk-navbar-container; cls-active: active-sticky; cls-inactive: uk-navbar-transparent; top: 200">
     <nav class="uk-navbar-container uk-position-relative uk-navbar-transparent" id="mainnav" uk-navbar="mode: click">
 
@@ -61,8 +62,8 @@
           <div>
             <div>
               <h3 class="text-highlight">Privados VIP</h3>
-              <p class="uk-width-large@m light">Portal para visitantes y clientes anunciantes mayores de 18 años.PrivadosVIP.cl NO ES UNA AGENCIA y no se responsabiliza por el servicio de las escorts. Todas las fotografías son certificadas y
-                verificadas como reales antes de ser publicadas.Nuestro portal se reserva el derecho de publicación.Privados VIP.cl presta el servicio de publicación y asesoría gráfica.</p>
+              <p v-if="footer" class="uk-width-large@m light">{{ footer.content }}
+              </p>
             </div>
           </div>
           <div>
@@ -119,18 +120,41 @@
 
 <script>
 import axios from 'axios'
+import DemoAdaptiveModal from '~/components/Home/ModalGirlCard.vue'
 
 export default {
+  components:{
+    DemoAdaptiveModal
+  },
   data() {
     return {
       isloading: true,
       search: "",
       categories: [],
       selecttosearch: "",
-
+      baseUrl: "",
+      footer: null
     }
   },
+  beforeMount(){
+     this.baseUrl =  this.$axios.defaults.baseURL
+  },
   methods: {
+    loadFooterContent: function(){
+      axios
+      .get(this.$axios.defaults.baseURL + '/footers/')
+        .then(response => {
+          // Handle success.
+          //console.log('Well done, here is the list of posts: ', response.data);
+         if(response.data.length != 0){
+          this.footer = response.data[0]
+        }
+        })
+        .catch(error => {
+          // Handle error.
+          console.log('An error occurred:', error);
+        });
+    },
     searchsubmit: function() {
       switch (this.selecttosearch) {
         case 'name':
@@ -148,7 +172,7 @@ export default {
     },
     loadCategories: function() {
       axios
-        .get('http://localhost:1337/categories', {
+        .get(this.baseUrl + '/categories', {
           params: {
             _sort: 'name:desc' // Generates http://localhost:1337/posts?_sort=createdAt:desc
           }
@@ -167,7 +191,7 @@ export default {
   mounted() {
     this.isloading = false
     this.loadCategories()
-
+    this.loadFooterContent()
   }
 
 }

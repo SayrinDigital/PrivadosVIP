@@ -34,14 +34,18 @@ components:{
       id: null,
       category: null,
       girls: [],
-      isloading : true
+      isloading : true,
+      baseUrl : ''
     }
+  },
+  beforeMount(){
+    this.baseUrl =  this.$axios.defaults.baseURL
   },
   mounted(){
     this.id = this.$route.params.id
 
     axios
-      .get('http://localhost:1337/categories/' + this.id)
+      .get(this.baseUrl + '/categories/' + this.id)
       .then(response => {
         // Handle success.
         //console.log('Well done, here is the list of posts: ', response.data);
@@ -53,7 +57,7 @@ components:{
       });
 
     axios
-      .get('http://localhost:1337/escorts/',{
+      .get(this.baseUrl + '/escorts/',{
         params:{
           'category' : this.id
         }

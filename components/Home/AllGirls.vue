@@ -21,48 +21,74 @@
 
         <div class="filter"  v-if="weights">
 
-         <label>
-           <input type="radio" v-model="selectedCategory" value="Todas" /> Todas</label>
-          <label v-for="weight in weights">
+         <!--<label>
+           <input type="radio" v-model="selectedCategory" value="Todas" /> Todas</label>-->
+           <div class="uk-form-controls">
+            <select v-model="selectedCategory" class="uk-select" id="form-stacked-select">
+              <option value="Todas">Todas</option>
+                <option  v-for="weight in weights" :value="weight.name">{{ weight.name }}</option>
+            </select>
+        </div>
+          <!--<label v-for="weight in weights">
             <input type="radio" v-model="selectedCategory" :value="weight.name" /> {{ weight.name }}
-          </label>
+          </label>-->
 
         </div>
 
         <div class="filter"  v-if="characteristics">
 
-         <label>
+          <div class="uk-form-controls">
+           <select v-model="selectedCharac" class="uk-select" id="form-stacked-select">
+             <option value="Todas">Todas</option>
+               <option  v-for="chara in characteristics" :value="chara.name"> {{ chara.name }}</option>
+           </select>
+       </div>
+
+         <!--<label>
            <input type="radio" v-model="selectedCharac" value="Todas" /> Todas</label>
           <label v-for="chara in characteristics">
             <input type="radio" v-model="selectedCharac" :value="chara.name" /> {{ chara.name }}
-          </label>
+          </label>-->
 
         </div>
 
         <div class="filter" >
 
-         <label>
+          <div class="uk-form-controls">
+           <select v-model="selectedAge" class="uk-select" id="form-stacked-select">
+             <option value="Todas">Todas</option>
+               <option  v-for="age in agesCondition" :value="age.condition" > {{ age.condition }}</option>
+           </select>
+       </div>
+
+         <!--<label>
            <input type="radio" v-model="selectedAge" value="Todas" /> Todas</label>
           <label v-for="age in agesCondition">
             <input type="radio" v-model="selectedAge" :value="age.condition" /> {{ age.condition }}
-          </label>
+          </label>-->
 
         </div>
 
         <div class="filter" >
 
-         <label>
+          <div class="uk-form-controls">
+           <select v-model="selectedPrice" class="uk-select" id="form-stacked-select">
+             <option value="Todas">Todas</option>
+               <option  v-for="price in pricesCondition" :value="price.condition"  > {{ price.condition }}</option>
+           </select>
+       </div>
+
+         <!--<label>
            <input type="radio" v-model="selectedPrice" value="Todas" /> Todas</label>
           <label v-for="price in pricesCondition">
             <input type="radio" v-model="selectedPrice" :value="price.condition" /> {{ price.condition }}
-          </label>
+          </label>-->
 
         </div>
 
       </div>
 
-
-      <div ref="girlscontainer" class="uk-child-width-1-4@m uk-child-width-1-3 uk-grid-small" uk-grid uk-scrollspy="cls: uk-animation-slide-bottom-medium; target: > div > div; delay: 100;">
+      <div ref="girlscontainer" class="uk-child-width-1-4@m uk-child-width-1-3 uk-grid-small" uk-grid uk-scrollspy="cls: uk-animation-slide-bottom-medium; target: > div > a; delay: 100;">
         <div v-for="girl in girlsChunk">
           <GirlCard :girl="girl"></GirlCard>
         </div>
@@ -84,6 +110,7 @@ export default {
   data() {
     return {
       girls: [],
+      baseUrl: "",
       size: 5,
       index: 0,
       characteristics: [],
@@ -118,7 +145,7 @@ export default {
       var lower = 18
       var upper = 0
       var price = vm.selectedPrice
-      var lowerPrice = 40000
+      var lowerPrice = 20000
       var upperPrice = 0
 
       switch (age) {
@@ -168,12 +195,13 @@ export default {
     }
   },
   beforeMount() {
+    this.baseUrl =  this.$axios.defaults.baseURL
     this.loadEscorts()
     this.loadCharacteristics()
     this.loadWeights()
   },
   mounted() {
-    this.scroll()
+
   },
   filters: {
     getNames: function(value) {
@@ -210,7 +238,7 @@ export default {
     },
     loadEscorts: function() {
       axios
-        .get('http://localhost:1337/escorts', {
+      .get(this.$axios.defaults.baseURL + '/escorts', {
           params: {
             _sort: 'id:desc' // Generates http://localhost:1337/posts?_sort=createdAt:desc
           }
@@ -219,7 +247,7 @@ export default {
           // Handle success.
           //console.log('Well done, here is the list of posts: ', response.data);
           this.girls = response.data
-          this.girls.sort((a, b) => Math.random() > .5 ? -1 : 1);
+          //this.girls.sort((a, b) => Math.random() > .5 ? -1 : 1);
           this.loadFirstGirls()
         })
         .catch(error => {
@@ -229,15 +257,6 @@ export default {
     },
     loadFirstGirls: function() {
       //this.girlsChunk = this.girls.slice(0, 5)
-    },
-    scroll() {
-      window.onscroll = () => {
-        let bottomOfWindow = document.documentElement.scrollTop + this.$refs.girlscontainer.clientHeight === this.$refs.girlscontainer.clientHeight;
-
-        if (bottomOfWindow) {
-          this.loadAmountEscorts(this.index)
-        }
-      };
     },
     loadAmountEscorts: function(index) {
       var start = index * this.size
@@ -249,7 +268,7 @@ export default {
     },
     loadCharacteristics: function() {
       axios
-        .get('http://localhost:1337/characteristics')
+        .get(this.$axios.defaults.baseURL + '/characteristics')
         .then(response => {
           this.characteristics = response.data
         })
@@ -260,7 +279,7 @@ export default {
     },
     loadWeights: function() {
       axios
-        .get('http://localhost:1337/weightescorts')
+        .get(this.$axios.defaults.baseURL + '/weightescorts')
         .then(response => {
           this.weights = response.data
         })
@@ -286,7 +305,7 @@ export default {
     },
     filterGirls: function() {
       axios
-        .get('http://localhost:1337/escorts', {
+        .get(this.$axios.defaults.baseURL + '/escorts', {
           params: {
             'characteristics.name_in': this.characteristic
           }

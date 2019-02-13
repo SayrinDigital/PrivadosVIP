@@ -27,12 +27,19 @@ export default {
   },
   data(){
     return{
-      headersList: null
+      headersList: null,
+      baseUrl : ""
     }
   },
+  beforeMount(){
+
+         this.baseUrl =  this.$axios.defaults.baseURL
+
+  },
   mounted(){
+
     axios
-  .get('http://localhost:1337/headers', {
+  .get(this.baseUrl + '/headers', {
     params: {
       _sort: 'id:desc' // Generates http://localhost:1337/posts?_sort=createdAt:desc
     }

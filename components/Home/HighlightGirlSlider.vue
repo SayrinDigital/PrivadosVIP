@@ -28,30 +28,58 @@ import GirlCard from '~/components/Home/components/GirlCard.vue'
 export default {
   data() {
     return {
-      girls: null
+      girls: null,
+      baseUrl : ""
     }
   },
   components: {
     GirlCard,
   },
-  mounted() {
-    axios
-      .get('http://localhost:1337/escorts', {
-        params: {
-          _sort: 'id:desc',
-          _limit: 10 // Generates http://localhost:1337/posts?_sort=createdAt:desc
-        }
-      })
-      .then(response => {
-        // Handle success.
-        //console.log('Well done, here is the list of posts: ', response.data);
-        this.girls = response.data
-        this.girls.sort((a, b) => Math.random() > .5 ? -1 : 1);
-      })
-      .catch(error => {
-        // Handle error.
-        console.log('An error occurred:', error);
-      });
+  beforeMount(){
+  this.baseUrl =  this.$axios.defaults.baseURL
   },
+  mounted() {
+    this.loadPremiumCategoryId()
+  },
+  methods: {
+    loadPremiumCategoryId: function(){
+      axios
+        .get(this.baseUrl + '/categories', {
+          params: {
+            "name": 'Premium',
+            _limit: 1 // Generates http://localhost:1337/posts?_sort=createdAt:desc
+          }
+        })
+        .then(response => {
+          // Handle success.
+          //console.log('Well done, here is the list of posts: ', response.data);
+          var id = response.data[0].id
+          this.loadPremiumGirls(id)
+        })
+        .catch(error => {
+          // Handle error.
+          console.log('An error occurred:', error);
+        });
+    },
+    loadPremiumGirls: function(id){
+      axios
+        .get(this.baseUrl + '/escorts', {
+          params: {
+            "category": id,
+            _limit: 10 // Generates http://localhost:1337/posts?_sort=createdAt:desc
+          }
+        })
+        .then(response => {
+          // Handle success.
+          //console.log('Well done, here is the list of posts: ', response.data);
+          this.girls = response.data
+          this.girls.sort((a, b) => Math.random() > .5 ? -1 : 1);
+        })
+        .catch(error => {
+          // Handle error.
+          console.log('An error occurred:', error);
+        });
+    }
+  }
 }
 </script>

@@ -92,12 +92,16 @@ export default {
   },
   data(){
     return{
-         categories : []
+         categories : [],
+         baseUrl: ""
     }
+  },
+  beforeMount(){
+     this.baseUrl =  this.$axios.defaults.baseURL
   },
   mounted() {
     axios
-      .get('http://localhost:1337/categories', {
+      .get(this.baseUrl + '/categories', {
         params: {
           _sort: 'name:desc' // Generates http://localhost:1337/posts?_sort=createdAt:desc
         }

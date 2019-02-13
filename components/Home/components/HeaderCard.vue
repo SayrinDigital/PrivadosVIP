@@ -2,7 +2,7 @@
 
   <header>
     <div class="uk-inline uk-position-cover">
-      <div class="uk-background-cover uk-position-cover" uk-img :data-src="'http://localhost:1337' + header.cover.url"></div>
+      <div class="uk-background-cover uk-position-cover" uk-img :data-src="baseUrl + header.cover.url"></div>
 
       <div class="uk-position-cover gradient-overlay">
 
@@ -22,7 +22,16 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
+  data(){
+    return{
+        baseUrl : "",
+    }
+  },
+  mounted(){
+   this.baseUrl =  this.$axios.defaults.baseURL
+  },
   props: ['header']
 }
 </script>

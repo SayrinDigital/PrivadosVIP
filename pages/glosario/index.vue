@@ -34,16 +34,18 @@ export default {
   transition: 'fade',
   data(){
     return{
-      glossaryterms: []
+      glossaryterms: [],
+      baseUrl: ""
     }
   },
   beforeMount(){
+    this.baseUrl =  this.$axios.defaults.baseURL
     this.loadGlossary()
   },
   methods: {
     loadGlossary: function(){
       axios
-      .get('http://localhost:1337/glossaries', {
+      .get(this.baseUrl + '/glossaries', {
       params: {
         _sort: 'id:desc' // Generates http://localhost:1337/posts?_sort=createdAt:desc
       }

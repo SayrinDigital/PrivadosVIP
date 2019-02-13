@@ -12,9 +12,9 @@
 		<div class="uk-flex uk-flex-center uk-flex-middle uk-height-viewport uk-light uk-position-relative uk-position-z-index">
 			<div class="uk-position-bottom-center uk-position-small uk-visible@m">
 				<span class="uk-text-small uk-text-muted">© {{ fullYear }} Privados VIP {{ username }}</span>
-        <a href="#" class="nav-link" @click="logout">
+        <!--<a href="#" class="nav-link" @click="logout">
               Logout
-            </a>
+            </a>-->
 			</div>
 			<div class="uk-width-medium uk-padding-small" uk-scrollspy="cls: uk-animation-fade">
 				<!--<div class="uk-text-center uk-margin">
@@ -23,12 +23,18 @@
 				<form @submit.prevent="handleSubmit">
 					<fieldset class="uk-fieldset">
             <div class="uk-margin">
-              <h3 class="text-highlight uk-text-center">Privados VIP</h3>
+              <h3 class="text-highlight uk-text-center">Solicitud Privados VIP</h3>
 
             </div>
-						<div class="uk-margin">
+            <div class="uk-margin">
 							<div class="uk-inline uk-width-1-1">
 								<span class="uk-form-icon uk-form-icon-flip" data-uk-icon="icon: user"></span>
+								<input class="uk-input uk-border-pill" v-model="username" required placeholder="Nombre" type="text">
+							</div>
+						</div>
+						<div class="uk-margin">
+							<div class="uk-inline uk-width-1-1">
+								<span class="uk-form-icon uk-form-icon-flip" data-uk-icon="icon: mail"></span>
 								<input class="uk-input uk-border-pill" v-model="useremail" required placeholder="Email" type="email">
 							</div>
 						</div>
@@ -38,6 +44,12 @@
 								<input class="uk-input uk-border-pill" v-model="password" required placeholder="Contraseña" type="password">
 							</div>
 						</div>
+            <!--<div class="uk-margin">
+							<div class="uk-inline uk-width-1-1">
+								<span class="uk-form-icon uk-form-icon-flip" data-uk-icon="icon: user"></span>
+								<input class="uk-input uk-border-pill" v-model="useremail" required placeholder="Email" type="email">
+							</div>
+						</div>-->
 
 						<!--<div class="uk-margin">
 							<label><input class="uk-checkbox" type="checkbox"> Keep me logged in</label>
@@ -46,44 +58,11 @@
                 <p class="uk-text-center uk-text-danger">{{ errormessage }}</p>
             </div>
 						<div class="uk-margin">
-							<button type="submit" class="uk-button uk-button-primary uk-border-pill uk-width-1-1">Iniciar Sesión</button>
+							<button type="submit" class="uk-button uk-button-primary uk-border-pill uk-width-1-1">Enviar Solicitud</button>
 						</div>
 					</fieldset>
 				</form>
-				<div>
-					<div class="uk-text-center">
-                        <a class="uk-link-reset uk-text-small uk-button-text uk-margin-small-right" data-uk-toggle="target: #register;animation: uk-animation-slide-top-small">Registrarse</a>
-						<a class="uk-link-reset uk-text-small  uk-button-text" data-uk-toggle="target: #recover;animation: uk-animation-slide-top-small">¿Olvidaste tu contraseña?</a>
-					</div>
-					<div class="uk-margin-small-top" id="recover" hidden>
-						<form>
 
-							<div class="uk-margin-small">
-								<div class="uk-inline uk-width-1-1">
-									<span class="uk-form-icon uk-form-icon-flip" data-uk-icon="icon: mail"></span>
-									<input class="uk-input uk-border-pill" placeholder="E-mail" required type="text">
-								</div>
-							</div>
-							<div class="uk-margin-small">
-								<button type="submit" class="uk-button uk-button-primary uk-border-pill uk-width-1-1">SEND PASSWORD</button>
-							</div>
-
-						</form>
-					</div>
-
-          <div class="uk-margin-small-top" id="register" hidden>
-
-							<div class="uk-margin-small">
-								<div class="uk-margin">
-                  <nuxt-link to="/registro/cliente" class="uk-button uk-button-primary uk-border-pill uk-width-1-1">Cliente</nuxt-link>
-                </div>
-                	<div class="uk-margin">
-                    <nuxt-link to="/registro/escort" class="uk-button uk-button-primary uk-border-pill uk-width-1-1">Escort</nuxt-link>
-                  </div>
-							</div>
-
-					</div>
-				</div>
 			</div>
 		</div>
 
@@ -109,38 +88,69 @@ export default {
   data() {
     return{
       response: null,
+      username: "",
       useremail: "",
       password: "",
-      errormessage: null
+      errormessage: null,
+      loading: false,
+      baseUrl: ""
     }
   },
   computed:{
     fullYear: function(){
       return (new Date()).getFullYear()
-    },
-    username() {
-     return this.$store.getters['auth/role']
-   }
+    }
+  },
+
+  beforeMount(){
+       this.baseUrl =  this.$axios.defaults.baseURL
   },
 
   methods: {
-     async handleSubmit() {
-       try {
-         this.loading = true
-         const response = await strapi.login(this.useremail, this.password)
-         this.loading = false
-         this.setUser(response.user)
-         this.$router.go('/')
-       } catch (err) {
-         this.loading = false
-         alert(err.message || 'An error occurred.')
-       }
-     },
-     ...mapMutations({
-       setUser: 'auth/setUser',
-       logout: 'auth/logout'
-     }),
 
-   }
- }
+    handleSubmit(){
+      axios
+  .post(this.baseUrl + '/auth/local/register', {
+    username: this.username,
+    email: this.useremail,
+    password: this.password,
+    role : {
+      'id' : 2
+    },
+    blocked: true
+  })
+  .then(response => {
+    // Handle success.
+    console.log('Well done!');
+    console.log('User profile', response.data.user);
+    console.log('User token', response.data.jwt);
+  })
+  .catch(error => {
+    // Handle error.
+    console.log('An error occurred:', error);
+  });
+},
+    async handleSubmita() {
+
+      /*try {
+        this.loading = true
+        const response = await strapi.register(
+        {
+          username: 'Strapi user',
+    email: 'user@strapi.io',
+    password: 'strapiPassword'
+        }
+        )
+        this.loading = false
+        //this.setUser(response.user)
+        //this.$router.push('/')
+        console.log('registered')
+      } catch (err) {
+        this.loading = false
+        alert(err.message || 'Ocurrió un error.')
+      }*/
+    },
+
+  }
+}
 </script>

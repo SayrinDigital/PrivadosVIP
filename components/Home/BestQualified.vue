@@ -30,17 +30,24 @@ import GirlCard from '~/components/Home/components/GirlCard.vue'
 export default {
   data() {
     return {
-      girls: null
+      girls: null,
+      baseUrl: ''
     }
   },
   components: {
     GirlCard
   },
+  beforeMount(){
+         this.baseUrl =  this.$axios.defaults.baseURL
+  },
   mounted() {
+
+
+
     axios
-      .get('http://localhost:1337/escorts', {
+      .get( this.baseUrl + '/escorts', {
         params: {
-          _sort: 'id:desc',
+          _sort: 'rating:desc',
           _limit: 10 // Generates http://localhost:1337/posts?_sort=createdAt:desc
         }
       })

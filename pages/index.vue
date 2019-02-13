@@ -12,19 +12,14 @@
     <Header></Header>
     <HighlightGirls></HighlightGirls>
 
-      <div>
-        <div class="uk-container uk-text-center">
-          <img class="uk-box-shadow-large  uk-border-rounded" uk-img src="http://www.sexshoptentaciones.com/prima2011/banner_nuevo.gif"></img>
-        </div>
-      </div>
+          <AdGroup :position="1"></AdGroup>
+
 
     <BestQualified></BestQualified>
 
-    <div>
-      <div class="uk-container uk-text-center">
-        <img class="uk-box-shadow-large uk-border-rounded" uk-img src="https://cdn2.f-cdn.com/contestentries/1300306/20633781/5acb9efa51509_thumb900.jpg"></img>
-      </div>
-    </div>
+
+        <AdGroup :position="2"></AdGroup>
+
 
 
     <section class="uk-section">
@@ -48,20 +43,22 @@
       </div>
     </section>
 
-    <div>
-      <div class="uk-container uk-text-center">
-        <img class="uk-box-shadow-large uk-border-rounded" uk-img src="https://cdn2.f-cdn.com/contestentries/1300306/20633781/5acb9efa51509_thumb900.jpg"></img>
-      </div>
-    </div>
+
+        <AdGroup :position="3"></AdGroup>
+
+
     <JoinUs></JoinUs>
-    <ModalGirl :girl="null" ref="modalgirlcard"></ModalGirl>
+
   </div>
 </transition>
+
+
 
 </div>
 </template>
 
 <script>
+import axios from 'axios'
 import Logo from '~/components/Logo.vue'
 import Header from '~/components/Home/Header.vue'
 import HighlightGirls from '~/components/Home/HighlightGirls.vue'
@@ -71,6 +68,7 @@ import GirlCard from '~/components/Home/components/GirlCard.vue'
 import JoinUs from '~/components/Home/JoinUs.vue'
 import ModalGirl from '~/components/Home/components/ModalGirl.vue'
 import HighlightGirlSlider from '~/components/Home/HighlightGirlSlider.vue'
+import AdGroup from '~/components/Home/AdGroup.vue'
 
 let UIkit;
 
@@ -92,11 +90,13 @@ export default {
   },
   data() {
     return {
-
-      isloading: true
+      adgroup: [],
+      isloading: true,
+      baseUrl: ""
     }
   },
   components: {
+    AdGroup,
     Logo,
     Header,
     HighlightGirls,
@@ -105,9 +105,13 @@ export default {
     GirlCard,
     JoinUs,
     ModalGirl,
-    HighlightGirlSlider
+    HighlightGirlSlider,
+  },
+  beforeMount(){
+     this.baseUrl =  this.$axios.defaults.baseURL
   },
   mounted() {
+
     this.$nextTick(function () {
         setTimeout(() => this.isloading = false, 1000)
   })
@@ -116,7 +120,7 @@ export default {
   methods: {
     openmodal: function(){
      UIkit.modal(this.$refs.modalgirlcard).show()
-    }
+   },
   }
 }
 </script>

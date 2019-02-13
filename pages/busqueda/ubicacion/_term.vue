@@ -34,14 +34,15 @@ export default {
   data(){
     return{
       girls: [],
-     searchterm: " "
+     searchterm: " ",
+     baseUrl: ""
     }
   },
   methods:{
      searchItems: function(){
        this.searchterm = this.$route.params.term
        axios
-         .get('http://localhost:1337/escorts', {
+         .get(this.baseUrl + '/escorts', {
            params: {
 
               "location_contains": this.searchterm // Generates http://localhost:1337/posts?_sort=createdAt:desc
@@ -57,6 +58,9 @@ export default {
            console.log('An error occurred:', error);
          });
      }
+  },
+  beforeMount(){
+    this.baseUrl =  this.$axios.defaults.baseURL
   },
   mounted(){
     this.searchItems()

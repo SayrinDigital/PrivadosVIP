@@ -37,7 +37,8 @@ module.exports = {
   /*
   ** Plugins to load before mounting the App
   */
-  plugins: [{ src: '~/plugins/uikit.js', ssr: false },{ src: '~/plugins/global.js', ssr: false }
+  plugins: [{ src: '~/plugins/uikit.js', ssr: false },{ src: '~/plugins/global.js', ssr: false },
+  { src: '~/plugins/vuemodal.js'}, {src: '~/plugins/vue2-filters.js', ssr: false}
   ],
 
   /*
@@ -52,7 +53,7 @@ module.exports = {
   ** Axios module configuration
   */
   axios: {
-    baseURL: 'http://localhost:1337'
+    baseURL: 'https://api.privadosvip.cl'
     // See https://github.com/nuxt-community/axios-module#options
   },
 
