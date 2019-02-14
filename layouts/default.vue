@@ -1,6 +1,6 @@
 <template>
 <div>
-  <demo-adaptive-modal/>
+  <demo-adaptive-modal />
   <div v-if="isloading == false" uk-sticky="animation: uk-animation-slide-top; sel-target: .uk-navbar-container; cls-active: active-sticky; cls-inactive: uk-navbar-transparent; top: 200">
     <nav class="uk-navbar-container uk-position-relative uk-navbar-transparent" id="mainnav" uk-navbar="mode: click">
 
@@ -45,7 +45,17 @@
         </div>
 
         <div class="uk-navbar-item">
-          <nuxt-link to="/login" tag="button" class="uk-button red-button"> Iniciar Sesión </nuxt-link>
+          <div v-if="$auth.$state.loggedIn">
+            <a class="uk-button uk-user" href="#"><span class="uk-icon uk-margin-small-right" uk-icon="icon: user"></span>{{ $auth.user.fullname }}</a>
+            <div class="uk-user-dropdown" uk-dropdown>
+              <ul class="uk-nav uk-dropdown-nav">
+                <li><nuxt-link to="/panel">Mi Perfil</nuxt-link></li>
+                <li class="uk-nav-divider"></li>
+                <li><a @click="$auth.logout()"><span uk-icon="icon: sign-out" class="uk-icon uk-margin-small-right"></span>Cerrar Sesión</a></li>
+              </ul>
+            </div>
+          </div>
+          <nuxt-link v-else to="/login" tag="button" class="uk-button red-button login-button"> Iniciar Sesión </nuxt-link>
         </div>
 
       </div>
@@ -79,19 +89,12 @@
                   </ul>
                 </div>
 
-                <!--<div>
-                  <h4>Empresa</h4>
-                  <ul class="uk-list uk-list-large">
-                    <li><a href="">Category</a></li>
-                    <li><a href="">Category</a></li>
-                    <li><a href="">Category</a></li>
-                  </ul>
-                </div>-->
-
                 <div>
                   <h4>Links de Interés</h4>
                   <ul class="uk-list uk-list-large">
-                    <li><nuxt-link to="/glosario">Glosario</nuxt-link></li>
+                    <li>
+                      <nuxt-link to="/glosario">Glosario</nuxt-link>
+                    </li>
                     <!--<li><a href="">Category</a></li>
                     <li><a href="">Category</a></li>-->
                   </ul>
@@ -123,7 +126,7 @@ import axios from 'axios'
 import DemoAdaptiveModal from '~/components/Home/ModalGirlCard.vue'
 
 export default {
-  components:{
+  components: {
     DemoAdaptiveModal
   },
   data() {
@@ -136,19 +139,19 @@ export default {
       footer: null
     }
   },
-  beforeMount(){
-     this.baseUrl =  this.$axios.defaults.baseURL
+  beforeMount() {
+    this.baseUrl = this.$axios.defaults.baseURL
   },
   methods: {
-    loadFooterContent: function(){
+    loadFooterContent: function() {
       axios
-      .get(this.$axios.defaults.baseURL + '/footers/')
+        .get(this.$axios.defaults.baseURL + '/footers/')
         .then(response => {
           // Handle success.
           //console.log('Well done, here is the list of posts: ', response.data);
-         if(response.data.length != 0){
-          this.footer = response.data[0]
-        }
+          if (response.data.length != 0) {
+            this.footer = response.data[0]
+          }
         })
         .catch(error => {
           // Handle error.
@@ -158,15 +161,15 @@ export default {
     searchsubmit: function() {
       switch (this.selecttosearch) {
         case 'name':
-              this.$router.push("/busqueda/" + this.search);
+          this.$router.push("/busqueda/" + this.search);
           break;
 
         case 'location':
-              this.$router.push("/busqueda/ubicacion/" + this.search);
+          this.$router.push("/busqueda/ubicacion/" + this.search);
           break;
 
         default:
-      this.$router.push("/busqueda/" + this.search);
+          this.$router.push("/busqueda/" + this.search);
       }
 
     },

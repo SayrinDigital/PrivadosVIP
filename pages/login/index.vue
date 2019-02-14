@@ -11,10 +11,7 @@
 
 		<div class="uk-flex uk-flex-center uk-flex-middle uk-height-viewport uk-light uk-position-relative uk-position-z-index">
 			<div class="uk-position-bottom-center uk-position-small uk-visible@m">
-				<span class="uk-text-small uk-text-muted">© {{ fullYear }} Privados VIP {{ username }}</span>
-        <a href="#" class="nav-link" @click="logout">
-              Logout
-            </a>
+				<span class="uk-text-small uk-text-muted">© {{ fullYear }} Privados VIP - {{ baseUrl }}</span>
 			</div>
 			<div class="uk-width-medium uk-padding-small" uk-scrollspy="cls: uk-animation-fade">
 				<!--<div class="uk-text-center uk-margin">
@@ -96,51 +93,46 @@
 <script>
 
 import axios from 'axios'
-const Cookie = process.client ? require('js-cookie') : undefined
-import Strapi from 'strapi-sdk-javascript/build/main'
-const apiUrl = process.env.API_URL || 'http://localhost:1337'
-const strapi = new Strapi(apiUrl)
-import { mapMutations } from 'vuex'
+
 
 export default {
   transition: 'fade',
   layout : 'login',
-  middleware: 'notAuthenticated',
   data() {
     return{
       response: null,
       useremail: "",
       password: "",
-      errormessage: null
+      errormessage: null,
+      baseUrl: ""
     }
   },
   computed:{
     fullYear: function(){
       return (new Date()).getFullYear()
-    },
-    username() {
-     return this.$store.getters['auth/role']
-   }
+    }
   },
-
+  beforeMount() {
+      this.baseUrl = this.$axios.defaults.baseURL
+    },
   methods: {
-     async handleSubmit() {
-       try {
-         this.loading = true
-         const response = await strapi.login(this.useremail, this.password)
-         this.loading = false
-         this.setUser(response.user)
-         this.$router.go('/')
-       } catch (err) {
-         this.loading = false
-         alert(err.message || 'An error occurred.')
-       }
-     },
-     ...mapMutations({
-       setUser: 'auth/setUser',
-       logout: 'auth/logout'
-     }),
+  async handleSubmit() {
+      // this.$toast.show('Logging in...', { duration: 500})
+      await this.$auth.loginWith('local', {
+        data: {
+          identifier: this.useremail,
+          password: this.password
+        }
+      })
+      .then(response => {
+        this.$axios.setToken(this.$auth.getToken(this.$auth.strategy.name))
+      })
 
-   }
+      .catch(error => {
+        this.errormessage = "Porfavor revise sus credenciales e intente nuevamente"
+        console.log('An error occurred:', error);
+      });
+  },
+}
  }
 </script>

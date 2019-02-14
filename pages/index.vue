@@ -1,56 +1,52 @@
 <template>
 <div>
 
-<transition name="fade">
-  <div key="1" class="preloader" v-if="isloading">
-    <div class="uk-position-center">
-      <div class="lds-ripple"><div></div><div></div></div>
+  <transition name="fade">
+    <div key="1" class="preloader" v-if="isloading">
+      <div class="uk-position-center">
+        <div class="lds-ripple">
+          <div></div>
+          <div></div>
+        </div>
+      </div>
     </div>
-  </div>
 
-  <div key="2" v-else>
-    <Header></Header>
-    <HighlightGirls></HighlightGirls>
+    <div key="2" v-else>
+      <Header></Header>
+      <HighlightGirls></HighlightGirls>
+      <AdGroup :position="1"></AdGroup>
+      <BestQualified></BestQualified>
+      <AdGroup :position="2"></AdGroup>
 
-          <AdGroup :position="1"></AdGroup>
-
-
-    <BestQualified></BestQualified>
-
-
-        <AdGroup :position="2"></AdGroup>
-
-
-
-    <section class="uk-section">
-      <div class="uk-container uk-container-large">
-        <div class="" uk-grid>
-          <div class="uk-width-3-5@m">
-            <div>
-              <AllGirls></AllGirls>
-            </div>
-          </div>
-          <div class="uk-width-2-5@m">
-            <div id="highlightgirlcontainer" uk-sticky="bottom: true">
-              <p class="section-header">Scorts</p>
-              <h1>Destacadas</h1>
+      <section class="uk-section">
+        <div class="uk-container uk-container-large">
+          <div class="" uk-grid>
+            <div class="uk-width-3-5@m">
               <div>
-                <HighlightGirlSlider></HighlightGirlSlider>
+                <AllGirls></AllGirls>
+              </div>
+            </div>
+            <div class="uk-width-2-5@m">
+              <div id="highlightgirlcontainer" uk-sticky="bottom: true">
+                <p class="section-header">Scorts</p>
+                <h1>Destacadas</h1>
+                <div>
+                  <HighlightGirlSlider></HighlightGirlSlider>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
 
-        <AdGroup :position="3"></AdGroup>
+      <AdGroup :position="3"></AdGroup>
 
 
-    <JoinUs></JoinUs>
+      <JoinUs></JoinUs>
 
-  </div>
-</transition>
+    </div>
+  </transition>
 
 
 
@@ -77,6 +73,7 @@ if (process.browser) {
 }
 
 export default {
+  auth: false,
   transition: 'fade',
   head() {
     return {
@@ -107,26 +104,25 @@ export default {
     ModalGirl,
     HighlightGirlSlider,
   },
-  beforeMount(){
-     this.baseUrl =  this.$axios.defaults.baseURL
+  beforeMount() {
+    this.baseUrl = this.$axios.defaults.baseURL
   },
   mounted() {
 
-    this.$nextTick(function () {
-        setTimeout(() => this.isloading = false, 1000)
-  })
+    this.$nextTick(function() {
+      setTimeout(() => this.isloading = false, 1000)
+    })
 
   },
   methods: {
-    openmodal: function(){
-     UIkit.modal(this.$refs.modalgirlcard).show()
-   },
+    openmodal: function() {
+      UIkit.modal(this.$refs.modalgirlcard).show()
+    },
   }
 }
 </script>
 
 <style type="scss" scoped>
-
 .preloader {
   width: 100vw;
   height: 100vh;

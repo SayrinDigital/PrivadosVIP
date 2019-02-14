@@ -24,6 +24,7 @@ import GirlCard from '~/components/Home/components/GirlCard.vue'
 import ModalGirl from '~/components/Home/components/ModalGirl.vue'
 
 export default {
+  auth: false,
 transition: 'fade',
 components:{
   GirlCard,

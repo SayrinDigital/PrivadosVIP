@@ -53,9 +53,34 @@ module.exports = {
   ** Axios module configuration
   */
   axios: {
-    baseURL: 'https://api.privadosvip.cl'
+    baseURL: 'http://localhost:1337'
     // See https://github.com/nuxt-community/axios-module#options
   },
+
+  auth: {
+    // Options
+    strategies: {
+      local: {
+        endpoints: {
+          login: { url: '/auth/local', method: 'post', propertyName: 'jwt' },
+          register: { url: '/auth/local/register', method: 'post'},
+          user: { url: '/users/me', method: 'get', propertyName: null},
+          logout: null
+        },
+         tokenRequired: true,
+         tokenType: 'bearer',
+      }
+    },
+    redirect: {
+      logout: '/',
+      login: '/login',
+      home: '/panel'
+    }
+  },
+
+  router: {
+  middleware: ['auth']
+},
 
   /*
   ** Build configuration
@@ -64,6 +89,7 @@ module.exports = {
     /*
     ** You can extend webpack config here
     */
+    transpile: ['vuejs-datepicker'],
     extend(config, ctx) {
 
     }

@@ -86,6 +86,7 @@ import axios from 'axios'
 import CategoryCard from '~/components/CategoryCard.vue'
 
 export default {
+  auth: false,
   transition: 'fade',
   components :{
     CategoryCard

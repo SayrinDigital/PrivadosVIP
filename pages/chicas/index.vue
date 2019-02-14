@@ -36,6 +36,7 @@ import ModalGirl from '~/components/Home/components/ModalGirl.vue'
 import HighlightGirlSlider from '~/components/Home/HighlightGirlSlider.vue'
 
 export default {
+  auth: false,
   transition: 'fade',
   head() {
     return {

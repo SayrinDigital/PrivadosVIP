@@ -8,6 +8,83 @@ html, body{
   background-color: $main-accent;
 }
 
+.uk-background-default{
+  background-color: #242424;
+  label{
+    color: #fff;
+    font-family: $t-font;
+    font-weight: 300;
+  }
+
+  .uk-input, .uk-textarea{
+     background-color: #303030;
+     border: none;
+  }
+
+  .vdp-datepicker{
+    input{
+      border-radius: 5px;
+      font-size: 14px;
+      border: none;
+       background-color: #303030;
+      font-family: $t-font;
+        height: 40px;
+        padding: 0 10px;
+        font-weight: 300;
+        color: #666;
+        width: 100%;
+    }
+    .vdp-datepicker__calendar{
+      background-color: $main-accent;
+    }
+  }
+
+  .uk-accordion-title{
+  font-size: 14px;
+  background: #303030;
+  padding: 10px;
+  border-radius: 5px;
+  color: #fff;
+  font-family: $t-font;
+}
+
+  .uk-hr{
+    border-top: 1px solid #303030;
+  }
+
+  header{
+    height: auto;
+    min-height: auto;
+  }
+
+}
+
+.left-panel{
+  min-height: 100vh;
+  width: 300px;
+  background-color: #242424;
+  .nav{
+    ul.uk-nav{
+      li{
+          padding: 5px 0;
+          a{
+            transition: all 200ms ease-in-out;
+
+            &.nuxt-link-exact-active{
+                color: $section-color;
+            }
+          }
+      }
+    }
+  }
+}
+
+.profilephoto-container{
+  width: 50px;
+  height: 50px;
+
+}
+
 .uk-navbar-container{
   &.active-sticky{
     background-color: $main-accent;
@@ -54,7 +131,8 @@ a{
   .uk-navbar-item{
     a{
       color: #fff;
-      font-family: $t-font;
+      font-family: $h-font;
+      font-size: 18px;
     }
   }
 }
@@ -385,6 +463,35 @@ select{
 .v--modal{
   background-color: transparent;
 }
+
+.uk-user{
+  background: $highlight-color;
+  border-radius: 5px;
+  color: $main-accent!important;
+}
+
+.uk-user-dropdown{
+  background-color: $main-accent;
+  border-radius: 5px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2)
+}
+
+.login-button{
+  font-family: $h-font!important;
+  font-size: 18px;
+}
+
+.uk-modal-dialog{
+  background: $main-accent;
+  color: #fff;
+  font-family: $t-font;
+  font-weight: 300;
+  .uk-modal-footer{
+    background: $main-accent;
+    border: 0;
+  }
+}
+
 
 
 
