@@ -107,7 +107,6 @@ export default {
 
   methods: {
     
-
     async register() {
 
       try {

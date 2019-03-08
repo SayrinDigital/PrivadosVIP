@@ -37,7 +37,11 @@
         </div>
 
         <div class="uk-navbar-item uk-visible@m">
-          <nuxt-link to="/chicas" class="uk-button-text">Nuestras Chicas</nuxt-link>
+          <nuxt-link to="/chicas" class="uk-button-text">Chicas</nuxt-link>
+        </div>
+
+        <div class="uk-navbar-item">
+          <button type="button" @click="pay">test flow</button>
         </div>
 
         <div class="uk-navbar-item uk-visible@m">
@@ -189,6 +193,17 @@ export default {
           // Handle error.
           console.log('An error occurred:', error);
         });
+    },
+    pay(){
+      axios
+    .post('https://flow.privadosvip.cl/flow/examples/payments/create.php')
+    .then(response.data => {
+         var order = response.data
+          this.$router.go(order.url + "?token=" + order.token)
+    })
+    .catch(error => {
+
+    })
     }
   },
   mounted() {
