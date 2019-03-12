@@ -89,7 +89,7 @@
       </div>
 
       <div ref="girlscontainer" class="uk-child-width-1-4@m uk-child-width-1-3 uk-grid-small" uk-grid uk-scrollspy="cls: uk-animation-slide-bottom-medium; target: > div > a; delay: 100;">
-        <div v-for="girl in girlsChunk">
+        <div v-for="girl in girlsChunk" :key="girl.id">
           <GirlCard :girl="girl"></GirlCard>
         </div>
       </div>

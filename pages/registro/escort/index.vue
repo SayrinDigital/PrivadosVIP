@@ -12,7 +12,7 @@
               Logout
             </a>-->
     </div>
-    <div class="uk-width-medium uk-padding-small" uk-scrollspy="cls: uk-animation-fade">
+    <div class="uk-width-medium uk-padding-small">
       <!--<div class="uk-text-center uk-margin">
 					<img src="img/login-logo.svg" alt="Logo">
 				</div>-->
@@ -55,6 +55,9 @@
           <div class="uk-margin">
             <p class="uk-text-center uk-text-danger">{{ errormessage }}</p>
           </div>
+          <div v-if="isuploading" class="uk-margin">
+            <div uk-spinner></div>
+          </div>
           <div class="uk-margin">
             <button type="submit" class="uk-button uk-button-primary uk-border-pill uk-width-1-1">Enviar Solicitud</button>
           </div>
@@ -92,7 +95,8 @@ export default {
       errormessage: null,
       loading: false,
       baseUrl: "",
-      photoImage: ""
+      photoImage: "",
+      isuploading: false
     }
   },
   computed:{
@@ -112,7 +116,7 @@ export default {
     async register() {
 
       try {
-
+              this.isuploading = true
         await axios.post(this.baseUrl + '/auth/local/register', {
           username: this.username,
           password: this.password,
@@ -126,6 +130,8 @@ export default {
 
       } catch (e) {
         console.log(e);
+              this.isuploading = false
+              this.errormessage = 'Porfavor revise los datos provistos. El correo podría ya estar en uso.'
 
       }
     },
@@ -137,18 +143,18 @@ export default {
         })
         .then(response => {
             //Sends escort and user information to create the relation
-
+        this.sendRegisterMail(response.data)
         this.uploadFile(response.data)
         })
         .catch(error => {
           // Handle error.
           console.log('An error occurred:', error);
-
+          this.isuploading = false
         });
     },
     uploadFile(newEscort){
 
-
+                 var vim = this
                  let headerData = new FormData()
                  headerData.append('files', this.photoImage)
                  headerData.append('refId', newEscort.id)
@@ -166,16 +172,31 @@ export default {
                    .then(response => {
 
                      UIkit.modal.alert('¡Se envió su solicitud satisfactoriamente, nos comunicaremos al correo provisto!').then(function() {
-                     this.$router.push('/')
-        });
+                     vim.$router.push('/')
+                          });
 
                    })
                    .catch(error => {
                      // Handle error.
+                     this.isuploading = false
                      console.log('An error occurred:', error);
 
                    });
       },
+    sendRegisterMail(escort){
+
+      axios
+      .post('/api/notifyregister',{
+        email: this.useremail
+      })
+      .then(response => {
+          console.log(response)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+
+    }
   }
 }
 

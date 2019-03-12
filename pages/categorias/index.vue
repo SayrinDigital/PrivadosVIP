@@ -19,7 +19,7 @@
               </div>
             </div>
           </div>
-          <div class="uk-width-3-5@m">
+          <!--<div class="uk-width-3-5@m">
             <div uk-slideshow="animation: push; ratio: false; autoplay: true">
               <ul class="uk-slideshow-items uk-height-large">
                 <li>
@@ -51,7 +51,7 @@
                 </li>
               </ul>
             </div>
-          </div>
+          </div>-->
         </div>
 
       <div class="uk-section">
@@ -64,7 +64,7 @@
 
         <div class="uk-section">
           <div uk-scrollspy="cls: uk-animation-fade; target: > div; delay: 200" class="uk-child-width-1-4@l uk-child-width-1-3@m uk-child-width-1-2@s uk-child-width-1-1 uk-grid-small uk-grid" uk-grid>
-            <div v-for="category in categories" v-bind:key="category.id">
+            <div v-for="category in categories"  v-if="category.cover"  v-bind:key="category.id">
                 <CategoryCard :category="category"></CategoryCard>
             </div>
           </div>
@@ -104,12 +104,11 @@ export default {
     axios
       .get(this.baseUrl + '/categories', {
         params: {
-          _sort: 'name:desc' // Generates http://localhost:1337/posts?_sort=createdAt:desc
+          _sort: 'name:desc'
         }
       })
       .then(response => {
         // Handle success.
-        //console.log('Well done, here is the list of posts: ', response.data);
         this.categories = response.data
       })
       .catch(error => {

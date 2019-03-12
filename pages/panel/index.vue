@@ -28,7 +28,7 @@
 
         </div>
         <div class="uk-navbar-item uk-padding-remove">
-          <div>
+          <div v-if="girl">
             <h3 class="uk-margin-remove"><span>{{ girl.name }}</span> | Perfil <span v-if="girl.user.blocked" uk-icon="icon: ban"></span> <span v-else uk-icon="icon: check"></span></h3>
             <p class="uk-margin-remove">Administre la información de {{ girl.name }}.</p>
           </div>
@@ -36,7 +36,7 @@
       </div>
       <div class="uk-navbar-right">
         <div  v-if="isGirlEnabled" class="uk-navbar-item">
-          <button @click="updateEscort()" class="uk-button theme-a" type="button"><span uk-icon="icon: push" class="uk-margin-small-right"></span> Guardar</button>
+          <button @click="updateEscort()" class="uk-button red-button" type="button"><span uk-icon="icon: push" class="uk-margin-small-right"></span> Guardar</button>
         </div>
         <div class="uk-navbar-item">
           <button @click="$auth.logout()" class="uk-button theme-a" type="button"><span uk-icon="icon: sign-out" class="uk-margin-small-right"></span> Cerrar Sesión</button>
@@ -183,17 +183,19 @@
                 </ul>
               </div>
             </div>
-            <div v-if="girl.category.name != 'Premium'">
-              <div class="uk-width-1-1">
-                <div class="uk-margin">
-                  <label class="uk-form-label" for="form-stacked-select">Categoría</label>
-                  <div class="uk-form-controls">
-                    <select v-if="girl.category" v-model="girl.category.id" class="uk-select light">
-                      <option v-for="category in categories" :value="category.id">{{ category.name }}</option>
-                    </select>
-                    <select v-else v-model="placeholderCategory" class="uk-select light">
-                      <option v-for="category in categories" :value="category.id">{{ category.name }}</option>
-                    </select>
+            <div v-if="girl.category">
+              <div v-if="girl.category.name != 'Premium'">
+                <div class="uk-width-1-1">
+                  <div class="uk-margin">
+                    <label class="uk-form-label" for="form-stacked-select">Categoría</label>
+                    <div class="uk-form-controls">
+                      <select v-if="girl.category" v-model="girl.category.id" class="uk-select light">
+                        <option v-for="category in categories" :value="category.id">{{ category.name }}</option>
+                      </select>
+                      <select v-else v-model="placeholderCategory" class="uk-select light">
+                        <option v-for="category in categories" :value="category.id">{{ category.name }}</option>
+                      </select>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -232,7 +234,7 @@
 
 
         <div>
-          <div class="uk-border-rounded uk-background-default uk-box-shadow-hover-large uk-card-body">
+          <div class="uk-border-rounded say-background-hl uk-box-shadow-hover-large uk-card-body">
             <form class="uk-grid-small" uk-grid>
               <div class="uk-width-1-1">
                 <div class="uk-margin">

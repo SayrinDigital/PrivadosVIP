@@ -9,7 +9,7 @@
     <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slider="autoplay: true; autoplay-interval: 2000">
 
         <ul class="uk-slider-items uk-child-width-1-3 uk-child-width-1-3@m uk-grid uk-grid-small uk-child-width-1-5@l" >
-          <li v-for="girl in girls" >
+          <li  v-for="girl in girls" >
             <GirlCard :girl="girl"></GirlCard>
           </li>
         </ul>

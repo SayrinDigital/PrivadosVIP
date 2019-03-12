@@ -1,7 +1,7 @@
 <template>
 
-  <a class="uk-display-block" @click="openModalGirl">
-    <div v-if="girl" class="girl-card">
+  <a v-if="girl" class="uk-display-block" @click="openModalGirl">
+    <div  class="girl-card">
       <div class="uk-position-relative   girl-card-container uk-inline uk-border-rounded uk-overflow-hidden">
         <img v-if="girl.profilephoto" :src="baseUrl + girl.profilephoto.url" uk-img alt="">
         <div class="uk-overlay uk-position-cover gradient-overlay"></div>

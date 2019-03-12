@@ -7,7 +7,7 @@
 
     <div class="uk-section uk-section-small">
       <div class="uk-child-width-1-5@l uk-child-width-1-4@m uk-child-width-1-3@s uk-child-width-1-3 uk-grid-small" uk-grid uk-scrollspy="cls: uk-animation-slide-right-medium; target: > div > a; delay: 100;">
-        <div v-for="girl in girls" >
+        <div  v-for="girl in girls" >
           <GirlCard :girl="girl"></GirlCard>
         </div>
       </div>

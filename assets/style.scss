@@ -16,6 +16,7 @@ html, body{
     font-weight: 300;
   }
 
+
   .uk-input, .uk-textarea{
      background-color: #303030;
      border: none;
@@ -38,6 +39,7 @@ html, body{
       background-color: $main-accent;
     }
   }
+
 
   .uk-accordion-title{
   font-size: 14px;
@@ -76,6 +78,16 @@ html, body{
           }
       }
     }
+  }
+}
+
+.say-background-hl{
+ background-color: #242424;
+  h1,h2,h3,h4,h5,h6{
+    color: $highlight-color;
+  }
+  p{
+    color: $highlight-color;
   }
 }
 
